@@ -1,0 +1,135 @@
+name: "arr_stack"
+
+networks:
+  arr-network:
+    name: arr-network
+
+x-arr-service: &x-arr-service
+  environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=Europe/Berlin
+  networks:
+    - arr-network
+  restart: unless-stopped
+  extra_hosts:
+    - "host.jellyfin.server:10.10.0.101"
+
+services:
+  sonarr:
+    <<: *x-arr-service
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    volumes:
+      - /data/sonarr/data:/config
+      - media-server:/media-server
+    ports:
+      - 8989:8989
+
+  radarr:
+    <<: *x-arr-service
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    volumes:
+      - /data/radarr/data:/config
+      - media-server:/media-server
+    ports:
+      - 7878:7878
+
+  readarr:
+    <<: *x-arr-service
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    volumes:
+      - /data/readarr/data:/config
+      - media-server:/media-server
+    ports:
+      - 8787:8787
+
+  lidarr:
+    <<: *x-arr-service
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    volumes:
+      - /data/lidarr/data:/config
+      - media-server:/media-server
+    ports:
+      - 8686:8686
+
+  prowlarr:
+    <<: *x-arr-service
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    volumes:
+      - /data/prowlarr/data:/config
+    ports:
+      - 9696:9696
+
+  bazarr:
+    <<: *x-arr-service
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    volumes:
+      - /data/bazarr/data:/config
+      - media-server:/media-server
+    ports:
+      - 6767:6767
+
+  jellyseerr:
+    <<: *x-arr-service
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    ports:
+      - 5055:5055
+    volumes:
+      - /data/jellyseerr/data:/app/config
+
+  ariang:
+    <<: *x-arr-service
+    container_name: ariang
+    image: hurlenko/aria2-ariang
+    ports:
+      - 8077:8080
+    volumes:
+      - /data/ariang/data:/aria2/conf
+      - media-server:/media-server
+    environment:
+      - RPC_SECRET=Kvih8VMr6SMxgaainUoQkjANMKUUTO
+      - ARIA2RPCPORT=443
+      - TZ=Europe/Berlin
+      - PUID=1000
+      - PGID=1000
+
+  audiobookshelf:
+    <<: *x-arr-service
+    container_name: audiobookshelf
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    ports:
+      - 13378:80
+    volumes:
+      - media-server:/media-server
+      - /data/audiobookshelf/config:/config
+      - /data/audiobookshelf/metadata:/metadata
+
+  metube:
+    <<: *x-arr-service
+    image: ghcr.io/alexta69/metube
+    container_name: metube
+    ports:
+      - "8081:8081"
+    volumes:
+      - media-server:/media-server
+    environment:
+      - DOWNLOAD_DIR=/media-server/Youtube
+    deploy:
+      resources:
+        limits:
+          cpus: '0.7'
+
+volumes:
+  media-server:
+    driver: local
+    driver_opts:
+      type: cifs
+      device: //10.10.0.148/media-server
+      o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD},uid=1000,gid=1000,file_mode=0755,dir_mode=0755

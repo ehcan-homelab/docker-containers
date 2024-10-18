@@ -1,0 +1,15 @@
+name: "homarr"
+
+services:
+  homarr:
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /data/homarr/configs:/app/data/configs
+      - /data/homarr/icons:/app/public/icons
+      - /data/homarr/data:/data
+    environment:
+      DISABLE_ANALYTICS: true
+    ports:
+      - '7575:7575'

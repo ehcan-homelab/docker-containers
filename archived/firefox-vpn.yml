@@ -1,0 +1,33 @@
+name: firefox-vpn
+services:
+  firefox:
+    image: lscr.io/linuxserver/firefox:latest
+    container_name: firefox
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+    volumes:
+      - /data/firefox/config:/config:rw
+    shm_size: "1gb"
+    restart: unless-stopped
+    network_mode: service:gluetun
+    depends_on:
+      - gluetun
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    env_file: "gluetun_secrets.env"
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 3303:3001
+    # environment: Update it in GitHub Action Secret
+      # - VPN_SERVICE_PROVIDER=torguard
+      # - OPENVPN_USER
+      # - OPENVPN_PASSWORD
+      # - SERVER_COUNTRIES=Netherlands
+      # - TZ=Europe/Berlin
