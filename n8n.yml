@@ -16,5 +16,7 @@ services:
       - WEBHOOK_URL=https://n8n.ehcan.io
       - GENERIC_TIMEZONE=Europe/Berlin
       - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_PUBLIC_API_DISABLED=true
+      - N8N_PUBLIC_API_SWAGGERUI_DISABLED=true
     volumes:
       - n8n_data:/home/node/.n8n
