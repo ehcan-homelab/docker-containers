@@ -13,7 +13,7 @@ x-arr-service: &x-arr-service
     - arr-network
   restart: unless-stopped
   extra_hosts:
-    - "host.jellyfin.server:10.10.0.101"
+    - "host.jellyfin.server:192.168.2.101"
 
 services:
   sonarr:
@@ -131,5 +131,5 @@ volumes:
     driver: local
     driver_opts:
       type: cifs
-      device: //10.10.0.148/media-server
+      device: //192.168.2.148/media-server
       o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD},uid=1000,gid=1000,file_mode=0755,dir_mode=0755
