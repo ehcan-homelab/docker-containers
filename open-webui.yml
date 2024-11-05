@@ -5,7 +5,7 @@ services:
     container_name: open-webui
     restart: unless-stopped
     volumes:
-      open-webui:/app/backend/data
+      - open-webui:/app/backend/data
     environment:
       - OPENAI_API_KEY
     ports:
