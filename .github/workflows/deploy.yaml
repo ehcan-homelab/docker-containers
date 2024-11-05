@@ -17,9 +17,12 @@ jobs:
           - { host: '10.10.0.102', stack_name: 'n8n' }
           - { host: '10.10.0.102', stack_name: 'wallos' }
           - { host: '10.10.0.102', stack_name: 'homarr' }
+          - { host: '10.10.0.102', stack_name: 'open-webui' }
+
           - { host: '10.10.0.102', stack_name: 'cadvisor' }
           - { host: '10.10.0.107', stack_name: 'cadvisor' }
           - { host: '10.10.0.108', stack_name: 'cadvisor' }
+
           - { host: '10.10.0.102', stack_name: 'watchtower', ntfy_title: 'Docker_102', ntfy_topic: 'ehcan-docker-PVBwxrR8Hm'}
           - { host: '10.10.0.107', stack_name: 'watchtower', ntfy_title: 'Traefik_107', ntfy_topic: 'ehcan-traefik-pVRanLAbLF'}
           - { host: '10.10.0.108', stack_name: 'watchtower', ntfy_title: 'Grafana_108', ntfy_topic: 'ehcan-grafana-vpSU2BdGnR'}
