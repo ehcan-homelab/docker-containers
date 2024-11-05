@@ -7,7 +7,7 @@ services:
     volumes:
       open-webui:/app/backend/data
     environment:
-      OPENAI_API_KEY
+      - OPENAI_API_KEY
     ports:
       - 3300:8080
 
