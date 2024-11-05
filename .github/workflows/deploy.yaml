@@ -53,6 +53,10 @@ jobs:
         run: |
           echo "NTFY_TITLE=${{ matrix.config.ntfy_title }}" >> $GITHUB_ENV
           echo "NTFY_TOPIC=${{ matrix.config.ntfy_topic }}" >> $GITHUB_ENV
+      - name: Inject secrets (open-webui)
+        if: env.DOCKER_PROJECT_NAME == 'open-webui'
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
 
       - name: Deploy with Docker Compose
         run: |
