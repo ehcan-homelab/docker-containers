@@ -18,5 +18,6 @@ services:
       - N8N_DIAGNOSTICS_ENABLED=false
       - N8N_PUBLIC_API_DISABLED=true
       - N8N_PUBLIC_API_SWAGGERUI_DISABLED=true
+      - N8N_PROXY_HOPS=1
     volumes:
       - n8n_data:/home/node/.n8n
