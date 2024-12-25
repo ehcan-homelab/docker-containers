@@ -8,6 +8,7 @@ services:
       - open-webui:/app/backend/data
     environment:
       - OPENAI_API_KEY
+      - WEBUI_SECRET_KEY
     ports:
       - 3300:8080
 

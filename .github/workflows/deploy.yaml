@@ -60,6 +60,7 @@ jobs:
         if: env.DOCKER_PROJECT_NAME == 'open-webui'
         run: |
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
+          echo "WEBUI_SECRET_KEY=${{ secrets.OPEN_WEBUI_SECRET_KEY }}" > .env
 
       - name: Deploy with Docker Compose
         run: |
