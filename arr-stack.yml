@@ -65,18 +65,6 @@ services:
     ports:
       - 9696:9696
 
-  flaresolverr:
-    <<: *x-arr-service
-    image: ghcr.io/flaresolverr/flaresolverr:latest
-    container_name: flaresolverr
-    environment:
-      - LOG_LEVEL=${LOG_LEVEL:-info}
-      - LOG_HTML=${LOG_HTML:-false}
-      - CAPTCHA_SOLVER=none
-      - TZ=Europe/Berlin
-    ports:
-      - "8191:8191"
-
   bazarr:
     <<: *x-arr-service
     image: lscr.io/linuxserver/bazarr:latest

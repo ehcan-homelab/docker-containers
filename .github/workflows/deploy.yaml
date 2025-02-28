@@ -36,6 +36,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Ensure we fetch the previous commit to check for changes
+
+      - name: Check if stack YAML file has changed
+        id: check-changes
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -q "^${{ env.DOCKER_COMPOSE_FILE }}$"; then
+            echo "Changes detected in ${{ env.DOCKER_COMPOSE_FILE }}"
+          else
+            echo "No changes in ${{ env.DOCKER_COMPOSE_FILE }}, skipping deployment."
+            exit 0
+          fi
 
       - name: Set up Docker context
         run: |
