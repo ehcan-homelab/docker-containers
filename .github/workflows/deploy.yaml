@@ -36,18 +36,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2  # Ensure we fetch the previous commit to check for changes
 
-      - name: Check if stack YAML file has changed
-        id: check-changes
-        run: |
-          if git diff --name-only HEAD^ HEAD | grep -q "^${{ env.DOCKER_COMPOSE_FILE }}$"; then
-            echo "Changes detected in ${{ env.DOCKER_COMPOSE_FILE }}"
-          else
-            echo "No changes in ${{ env.DOCKER_COMPOSE_FILE }}, skipping deployment."
-            exit 0
-          fi
 
       - name: Set up Docker context
         run: |
@@ -55,6 +44,7 @@ jobs:
             create ${{ env.DOCKER_CONTEXT_NAME }} \
             --docker host=${{ env.DOCKER_HOST }}
 
+      # Inject secrets
       - name: Inject secrets (arr-stack)
         if: env.DOCKER_PROJECT_NAME == 'arr-stack'
         run: |
@@ -73,6 +63,7 @@ jobs:
         run: |
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
           echo "WEBUI_SECRET_KEY=${{ secrets.OPEN_WEBUI_SECRET_KEY }}" > .env
+      # Inject secrets
 
       - name: Deploy with Docker Compose
         run: |
