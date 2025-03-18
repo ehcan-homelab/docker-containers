@@ -67,11 +67,11 @@ jobs:
       - name: Inject secrets (tg-file-stream-bot)
         if: env.DOCKER_PROJECT_NAME == 'tg-file-stream-bot'
         run: |
-          echo "API_ID=${{ secrets.TG_FILESTREAMBOT_API_ID }}" > .env
-          echo "API_HASH=${{ secrets.TG_FILESTREAMBOT_API_HASH }}" > .env
-          echo "BOT_TOKEN=${{ secrets.TG_FILESTREAMBOT_BOT_TOKEN }}" > .env
-          echo "LOG_CHANNEL=${{ secrets.TG_FILESTREAMBOT_LOG_CHANNEL }}" > .env
-          echo "ALLOWED_USERS=${{ secrets.TG_FILESTREAMBOT_ALLOWED_USERS }}" > .env
+          echo "API_ID=${{ secrets.TG_FILESTREAMBOT_API_ID }}" >> $GITHUB_ENV
+          echo "API_HASH=${{ secrets.TG_FILESTREAMBOT_API_HASH }}" >> $GITHUB_ENV
+          echo "BOT_TOKEN=${{ secrets.TG_FILESTREAMBOT_BOT_TOKEN }}" >> $GITHUB_ENV
+          echo "LOG_CHANNEL=${{ secrets.TG_FILESTREAMBOT_LOG_CHANNEL }}" >> $GITHUB_ENV
+          echo "ALLOWED_USERS=${{ secrets.TG_FILESTREAMBOT_ALLOWED_USERS }}" >> $GITHUB_ENV
       # Inject secrets
 
       - name: Deploy with Docker Compose
