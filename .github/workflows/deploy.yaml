@@ -18,6 +18,7 @@ jobs:
           - { host: '10.10.0.102', stack_name: 'wallos' }
           - { host: '10.10.0.102', stack_name: 'homarr' }
           - { host: '10.10.0.102', stack_name: 'open-webui' }
+          - { host: '10.10.0.102', stack_name: 'tg-file-stream-bot' }
 
           - { host: '10.10.0.102', stack_name: 'cadvisor' }
           - { host: '10.10.0.107', stack_name: 'cadvisor' }
@@ -63,6 +64,14 @@ jobs:
         run: |
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
           echo "WEBUI_SECRET_KEY=${{ secrets.OPEN_WEBUI_SECRET_KEY }}" > .env
+      - name: Inject secrets (tg-file-stream-bot)
+        if: env.DOCKER_PROJECT_NAME == 'tg-file-stream-bot'
+        run: |
+          echo "API_ID=${{ secrets.TG_FILESTREAMBOT_API_ID }}" > .env
+          echo "API_HASH=${{ secrets.TG_FILESTREAMBOT_API_HASH }}" > .env
+          echo "BOT_TOKEN=${{ secrets.TG_FILESTREAMBOT_BOT_TOKEN }}" > .env
+          echo "LOG_CHANNEL=${{ secrets.TG_FILESTREAMBOT_LOG_CHANNEL }}" > .env
+          echo "ALLOWED_USERS=${{ secrets.TG_FILESTREAMBOT_ALLOWED_USERS }}" > .env
       # Inject secrets
 
       - name: Deploy with Docker Compose
