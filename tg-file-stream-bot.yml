@@ -13,4 +13,5 @@ services:
       - BOT_TOKEN
       - LOG_CHANNEL
       - ALLOWED_USERS
+      - PORT=8038
       - HOST=http://192.168.2.102:8038
