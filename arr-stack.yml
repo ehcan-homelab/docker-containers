@@ -146,6 +146,14 @@ services:
       timeout: 10s
       retries: 3
 
+  checkrr:
+    <<: *x-arr-service
+    container_name: checkrr
+    image: soheilrt/checkrr:latest
+    restart: unless-stopped
+    volumes:
+      - /data/checkrr/config.yaml:/etc/checkrr/config.yaml:ro
+
 volumes:
   media-server:
     driver: local
