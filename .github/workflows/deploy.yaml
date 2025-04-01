@@ -3,9 +3,29 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '**.yml'
+      - '**.yaml'
 
 jobs:
+  detect_changes:
+    runs-on: self-hosted
+    outputs:
+      yml_files: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v46
+        with:
+          files: |
+            *.yml
+            *.yaml
+
   deploy:
+    needs: detect_changes
     name: Deploy (${{ matrix.config.stack_name }}, ${{ matrix.config.host }})
     runs-on: self-hosted
     strategy:
@@ -35,11 +55,23 @@ jobs:
       DOCKER_PROJECT_NAME: ${{ matrix.config.stack_name }}
 
     steps:
+      - name: Check if stack should deploy
+        id: check
+        run: |
+          changed_files="${{ needs.detect_changes.outputs.yml_files }}"
+          stack_file="${{ matrix.config.stack_name }}.yml"
+          if [[ $changed_files == *"$stack_file"* ]]; then
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_deploy=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Checkout code
+        if: steps.check.outputs.should_deploy == 'true'
         uses: actions/checkout@v4
 
-
       - name: Set up Docker context
+        if: steps.check.outputs.should_deploy == 'true'
         run: |
           docker context \
             create ${{ env.DOCKER_CONTEXT_NAME }} \
@@ -47,25 +79,25 @@ jobs:
 
       # Inject secrets
       - name: Inject secrets (arr-stack)
-        if: env.DOCKER_PROJECT_NAME == 'arr-stack'
+        if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'arr-stack'
         run: |
           echo "${{ secrets.ARR_CIFS }}" >> $GITHUB_ENV
       - name: Inject secrets (firefox-vpn)
-        if: env.DOCKER_PROJECT_NAME == 'firefox-vpn'
+        if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'firefox-vpn'
         run: |
           echo "${{ secrets.GLUETUN_SECRETS }}" > gluetun_secrets.env
       - name: Inject Watchtower configs
-        if: env.DOCKER_PROJECT_NAME == 'watchtower'
+        if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'watchtower'
         run: |
           echo "NTFY_TITLE=${{ matrix.config.ntfy_title }}" >> $GITHUB_ENV
           echo "NTFY_TOPIC=${{ matrix.config.ntfy_topic }}" >> $GITHUB_ENV
       - name: Inject secrets (open-webui)
-        if: env.DOCKER_PROJECT_NAME == 'open-webui'
+        if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'open-webui'
         run: |
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
           echo "WEBUI_SECRET_KEY=${{ secrets.OPEN_WEBUI_SECRET_KEY }}" > .env
       - name: Inject secrets (tg-file-stream-bot)
-        if: env.DOCKER_PROJECT_NAME == 'tg-file-stream-bot'
+        if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'tg-file-stream-bot'
         run: |
           echo "API_ID=${{ secrets.TG_FILESTREAMBOT_API_ID }}" >> fsb.env
           echo "API_HASH=${{ secrets.TG_FILESTREAMBOT_API_HASH }}" >> fsb.env
@@ -75,12 +107,13 @@ jobs:
       # Inject secrets
 
       - name: Deploy with Docker Compose
+        if: steps.check.outputs.should_deploy == 'true'
         run: |
           docker --context ${{ env.DOCKER_CONTEXT_NAME }} compose --file ${{ env.DOCKER_COMPOSE_FILE }} pull
           docker --context ${{ env.DOCKER_CONTEXT_NAME }} compose --file ${{ env.DOCKER_COMPOSE_FILE }} \
             --project-name ${{ env.DOCKER_PROJECT_NAME }} up -d --remove-orphans
 
       - name: Cleanup Docker context
-        if: always()
+        if: steps.check.outputs.should_deploy == 'true'
         run: |
           docker context rm ${{ env.DOCKER_CONTEXT_NAME }} --force
