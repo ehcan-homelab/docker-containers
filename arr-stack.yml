@@ -94,7 +94,6 @@ services:
       - /data/ariang/data:/aria2/conf
       - media-server:/media-server
     environment:
-      - RPC_SECRET=Kvih8VMr6SMxgaainUoQkjANMKUUTO
       - ARIA2RPCPORT=443
       - TZ=Europe/Berlin
       - PUID=1000
