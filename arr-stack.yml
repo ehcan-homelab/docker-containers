@@ -3,6 +3,7 @@ name: "arr_stack"
 networks:
   arr-network:
     name: arr-network
+    external: true
 
 x-arr-service: &x-arr-service
   environment:
@@ -152,6 +153,17 @@ services:
     restart: unless-stopped
     volumes:
       - /data/checkrr/config.yaml:/etc/checkrr/config.yaml:ro
+
+  pyload-ng:
+    <<: *x-arr-service
+    image: lscr.io/linuxserver/pyload-ng:latest
+    container_name: pyload-ng
+    volumes:
+      - /data/pyload/data:/config
+      - media-server:/media-server
+    ports:
+      - 8012:8000
+      - 9666:9666 #optional
 
 volumes:
   media-server:
