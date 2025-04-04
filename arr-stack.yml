@@ -163,7 +163,7 @@ services:
       - media-server:/media-server
     ports:
       - 8012:8000
-      - 9666:9666 #optional
+      - 9666:9666 # Click'n'Load port
 
 volumes:
   media-server:
