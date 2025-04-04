@@ -114,6 +114,5 @@ jobs:
             --project-name ${{ env.DOCKER_PROJECT_NAME }} up -d --remove-orphans
 
       - name: Cleanup Docker context
-        if: steps.check.outputs.should_deploy == 'true'
         run: |
-          docker context rm ${{ env.DOCKER_CONTEXT_NAME }} --force
+          docker context rm ${{ env.DOCKER_CONTEXT_NAME }} --force || true
