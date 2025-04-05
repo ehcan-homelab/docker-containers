@@ -38,15 +38,14 @@ jobs:
           - { host: '10.10.0.102', stack_name: 'wallos' }
           - { host: '10.10.0.102', stack_name: 'homarr' }
           - { host: '10.10.0.102', stack_name: 'open-webui' }
-          - { host: '10.10.0.102', stack_name: 'tg-file-stream-bot' }
 
           - { host: '10.10.0.102', stack_name: 'cadvisor' }
           - { host: '10.10.0.107', stack_name: 'cadvisor' }
           - { host: '10.10.0.108', stack_name: 'cadvisor' }
 
-          - { host: '10.10.0.102', stack_name: 'watchtower', ntfy_title: 'Docker_102', ntfy_topic: 'ehcan-docker-PVBwxrR8Hm'}
-          - { host: '10.10.0.107', stack_name: 'watchtower', ntfy_title: 'Traefik_107', ntfy_topic: 'ehcan-traefik-pVRanLAbLF'}
-          - { host: '10.10.0.108', stack_name: 'watchtower', ntfy_title: 'Grafana_108', ntfy_topic: 'ehcan-grafana-vpSU2BdGnR'}
+          - { host: '10.10.0.102', stack_name: 'watchtower', server: 'docker' }
+          - { host: '10.10.0.107', stack_name: 'watchtower', server: 'traefik' }
+          - { host: '10.10.0.108', stack_name: 'watchtower', server: 'grafana' }
 
     env:
       DOCKER_HOST: tcp://${{ matrix.config.host }}:2375
@@ -86,24 +85,25 @@ jobs:
         if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'firefox-vpn'
         run: |
           echo "${{ secrets.GLUETUN_SECRETS }}" > gluetun_secrets.env
-      - name: Inject Watchtower configs
-        if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'watchtower'
+
+      - name: Inject Watchtower configs (docker)
+        if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'watchtower' && matrix.config.server == 'docker'
         run: |
-          echo "NTFY_TITLE=${{ matrix.config.ntfy_title }}" >> $GITHUB_ENV
-          echo "NTFY_TOPIC=${{ matrix.config.ntfy_topic }}" >> $GITHUB_ENV
+          echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN_DOCKER }}" >> $GITHUB_ENV
+      - name: Inject Watchtower configs (traefik)
+        if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'watchtower' && matrix.config.server == 'traefik'
+        run: |
+          echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN_TRAEFIK }}" >> $GITHUB_ENV
+      - name: Inject Watchtower configs (grafana)
+        if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'watchtower' && matrix.config.server == 'grafana'
+        run: |
+          echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN_GRAFANA }}" >> $GITHUB_ENV
+
       - name: Inject secrets (open-webui)
         if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'open-webui'
         run: |
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
           echo "WEBUI_SECRET_KEY=${{ secrets.OPEN_WEBUI_SECRET_KEY }}" > .env
-      - name: Inject secrets (tg-file-stream-bot)
-        if: steps.check.outputs.should_deploy == 'true' && env.DOCKER_PROJECT_NAME == 'tg-file-stream-bot'
-        run: |
-          echo "API_ID=${{ secrets.TG_FILESTREAMBOT_API_ID }}" >> fsb.env
-          echo "API_HASH=${{ secrets.TG_FILESTREAMBOT_API_HASH }}" >> fsb.env
-          echo "BOT_TOKEN=${{ secrets.TG_FILESTREAMBOT_BOT_TOKEN }}" >> fsb.env
-          echo "LOG_CHANNEL=${{ secrets.TG_FILESTREAMBOT_LOG_CHANNEL }}" >> fsb.env
-          echo "ALLOWED_USERS=${{ secrets.TG_FILESTREAMBOT_ALLOWED_USERS }}" >> fsb.env
       # Inject secrets
 
       - name: Deploy with Docker Compose
