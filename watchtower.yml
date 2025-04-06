@@ -8,10 +8,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      DOCKER_API_VERSION: 1.45
+      DOCKER_API_VERSION: 1.48
       TZ: Europe/Berlin
       WATCHTOWER_CLEANUP: true
       WATCHTOWER_REMOVE_VOLUMES: true
+      WATCHTOWER_LOG_FORMAT: JSON
       WATCHTOWER_DEBUG: false
       WATCHTOWER_INCLUDE_RESTARTING: true
       WATCHTOWER_INCLUDE_STOPPED: true
