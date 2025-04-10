@@ -30,7 +30,7 @@ services:
     depends_on:
       - litellm-db
     ports:
-      - 4000
+      - 4000:4000
     volumes:
       - /data/litellm/litellm.yaml:/app/config.yaml
     environment:
