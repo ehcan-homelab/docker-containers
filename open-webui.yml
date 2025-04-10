@@ -36,6 +36,8 @@ services:
     environment:
       - OPENAI_API_KEY
       - OPEN_ROUTER_API_KEY
+      - LITELLM_MASTER_KEY
+      - LITELLM_SALT_KEY
       - DATABASE_URL=postgresql://postgres:somesecretpw@litellm-db:5432/litellm
     command: --port 4000 --config /app/config.yaml
 
