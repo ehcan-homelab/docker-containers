@@ -9,8 +9,36 @@ services:
     environment:
       - OPENAI_API_KEY
       - WEBUI_SECRET_KEY
+      - ENABLE_AUTOCOMPLETE_GENERATION=false
     ports:
       - 3300:8080
+  litellm-db:
+    container_name: litellm-db
+    image: postgres:15
+    restart: always
+    shm_size: 128mb
+    volumes:
+      - litellm-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: somesecretpw
+      POSTGRES_DB: litellm
+      PGDATA: /var/lib/postgresql/data/pgdata
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: litellm
+    restart: always
+    depends_on:
+      - litellm-db
+    ports:
+      - 4000
+    volumes:
+      - /data/litellm/litellm.yaml:/app/config.yaml
+    environment:
+      - OPENAI_API_KEY
+      - OPEN_ROUTER_API_KEY
+      - DATABASE_URL=postgresql://postgres:somesecretpw@litellm-db:5432/litellm
+    command: --port 4000 --config /app/config.yaml
 
 volumes:
   open-webui:
+  litellm-db:

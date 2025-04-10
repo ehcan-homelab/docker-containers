@@ -86,9 +86,11 @@ jobs:
             "open-webui")
               echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
               echo "WEBUI_SECRET_KEY=${{ secrets.OPEN_WEBUI_SECRET_KEY }}" >> .env
+              echo "OPEN_ROUTER_API_KEY=${{ secrets.OPEN_ROUTER_API_KEY }}" >> .env
               ;;
             "watchtower")
-              case ${{ matrix.config.server }} in
+              server="${{ matrix.config.server }}"
+              case "$server" in
                 "docker")
                   echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN_DOCKER }}" >> $GITHUB_ENV
                   ;;
