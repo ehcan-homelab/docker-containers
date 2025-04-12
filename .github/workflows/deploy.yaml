@@ -100,11 +100,11 @@ jobs:
               echo "${{ secrets.ARR_CIFS }}" >> $GITHUB_ENV
               ;;
             "open-webui")
-              echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
-              echo "WEBUI_SECRET_KEY=${{ secrets.OPEN_WEBUI_SECRET_KEY }}" >> .env
-              echo "OPEN_ROUTER_API_KEY=${{ secrets.OPEN_ROUTER_API_KEY }}" >> .env
-              echo "LITELLM_MASTER_KEY=${{ secrets.LITELLM_MASTER_KEY }}" >> .env
-              echo "LITELLM_SALT_KEY=${{ secrets.LITELLM_SALT_KEY }}" >> .env
+              echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+              echo "OPEN_WEBUI_SECRET_KEY=${{ secrets.OPEN_WEBUI_SECRET_KEY }}" >> $GITHUB_ENV
+              echo "OPEN_ROUTER_API_KEY=${{ secrets.OPEN_ROUTER_API_KEY }}" >> $GITHUB_ENV
+              echo "LITELLM_MASTER_KEY=${{ secrets.LITELLM_MASTER_KEY }}" >> $GITHUB_ENV
+              echo "LITELLM_SALT_KEY=${{ secrets.LITELLM_SALT_KEY }}" >> $GITHUB_ENV
               ;;
             "watchtower")
               server="${{ matrix.config.server }}"

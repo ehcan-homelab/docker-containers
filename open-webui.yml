@@ -8,8 +8,8 @@ services:
     volumes:
       - open-webui:/app/backend/data
     environment:
-      - OPENAI_API_KEY
-      - WEBUI_SECRET_KEY
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - WEBUI_SECRET_KEY=${OPEN_WEBUI_SECRET_KEY}
       - ENABLE_AUTOCOMPLETE_GENERATION=false
     ports:
       - 3300:8080
@@ -35,10 +35,10 @@ services:
     volumes:
       - /data/litellm/litellm.yaml:/app/config.yaml
     environment:
-      - OPENAI_API_KEY
-      - OPEN_ROUTER_API_KEY
-      - LITELLM_MASTER_KEY
-      - LITELLM_SALT_KEY
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPEN_ROUTER_API_KEY=${OPEN_ROUTER_API_KEY}
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
+      - LITELLM_SALT_KEY=${LITELLM_SALT_KEY}
       - DATABASE_URL=postgresql://postgres:somesecretpw@litellm-db:5432/litellm
     command: --port 4000 --config /app/config.yaml
 
