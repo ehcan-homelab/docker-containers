@@ -8,13 +8,17 @@ on:
       - '**.yaml'
 
 jobs:
-  detect_changes:
+  prepare_matrix:
+    name: Prepare Matrix
     runs-on: self-hosted
     outputs:
-      yml_files: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      has_changes: ${{ steps.set-matrix.outputs.has_changes }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Needed for accurate changed files detection
 
       - name: Get changed files
         id: changed-files
@@ -24,28 +28,54 @@ jobs:
             *.yml
             *.yaml
 
+      - name: Set dynamic matrix
+        id: set-matrix
+        run: |
+          CONFIGS='[
+            { "host": "10.10.0.102", "stack_name": "arr-stack" },
+            { "host": "10.10.0.102", "stack_name": "portainer" },
+            { "host": "10.10.0.102", "stack_name": "uptime-kuma" },
+            { "host": "10.10.0.102", "stack_name": "n8n" },
+            { "host": "10.10.0.102", "stack_name": "wallos" },
+            { "host": "10.10.0.102", "stack_name": "homarr" },
+            { "host": "10.10.0.102", "stack_name": "open-webui" },
+            { "host": "10.10.0.102", "stack_name": "cadvisor" },
+            { "host": "10.10.0.107", "stack_name": "cadvisor" },
+            { "host": "10.10.0.108", "stack_name": "cadvisor" },
+            { "host": "10.10.0.102", "stack_name": "watchtower", "server": "docker" },
+            { "host": "10.10.0.107", "stack_name": "watchtower", "server": "traefik" },
+            { "host": "10.10.0.108", "stack_name": "watchtower", "server": "grafana" }
+          ]'
+          CHANGED_FILES='${{ steps.changed-files.outputs.all_changed_and_modified_files }}'
+
+          FILTERED_CONFIGS=$(echo "$CONFIGS" | jq -c --arg changed_files "$CHANGED_FILES" '
+            [.[] |
+                .stack_name as $stack_name |
+                select(
+                ($changed_files | split(" ") | index($stack_name + ".yml")) != null or
+                ($changed_files | split(" ") | index($stack_name + ".yaml")) != null
+                )
+            ]
+          ')
+
+          # Check if we have any configurations to deploy
+          if [ "$(echo "$FILTERED_CONFIGS" | jq 'length')" -gt 0 ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+          # Set the matrix output
+          echo "matrix=$(echo "$FILTERED_CONFIGS" | jq -c '{config: .}')" >> $GITHUB_OUTPUT
+
   deploy:
-    needs: detect_changes
+    needs: prepare_matrix
+    if: needs.prepare_matrix.outputs.has_changes == 'true'
     name: Deploy (${{ matrix.config.stack_name }}, ${{ matrix.config.host }})
     runs-on: self-hosted
     strategy:
-      matrix:
-        config:
-          - { host: '10.10.0.102', stack_name: 'arr-stack' }
-          - { host: '10.10.0.102', stack_name: 'portainer' }
-          - { host: '10.10.0.102', stack_name: 'uptime-kuma' }
-          - { host: '10.10.0.102', stack_name: 'n8n' }
-          - { host: '10.10.0.102', stack_name: 'wallos' }
-          - { host: '10.10.0.102', stack_name: 'homarr' }
-          - { host: '10.10.0.102', stack_name: 'open-webui' }
-
-          - { host: '10.10.0.102', stack_name: 'cadvisor' }
-          - { host: '10.10.0.107', stack_name: 'cadvisor' }
-          - { host: '10.10.0.108', stack_name: 'cadvisor' }
-
-          - { host: '10.10.0.102', stack_name: 'watchtower', server: 'docker' }
-          - { host: '10.10.0.107', stack_name: 'watchtower', server: 'traefik' }
-          - { host: '10.10.0.108', stack_name: 'watchtower', server: 'grafana' }
+      matrix: ${{ fromJson(needs.prepare_matrix.outputs.matrix) }}
+      fail-fast: false
 
     env:
       DOCKER_HOST: tcp://${{ matrix.config.host }}:2375
@@ -54,30 +84,16 @@ jobs:
       DOCKER_PROJECT_NAME: ${{ matrix.config.stack_name }}
 
     steps:
-      - name: Check if stack should deploy
-        id: check
-        run: |
-          changed_files="${{ needs.detect_changes.outputs.yml_files }}"
-          stack_file="${{ matrix.config.stack_name }}.yml"
-          if [[ $changed_files == *"$stack_file"* ]]; then
-            echo "should_deploy=true" >> $GITHUB_OUTPUT
-          else
-            echo "should_deploy=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Checkout code
-        if: steps.check.outputs.should_deploy == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Docker context
-        if: steps.check.outputs.should_deploy == 'true'
         run: |
           docker context \
             create ${{ env.DOCKER_CONTEXT_NAME }} \
             --docker host=${{ env.DOCKER_HOST }}
 
       - name: Inject secrets
-        if: steps.check.outputs.should_deploy == 'true'
         run: |
           case ${{ env.DOCKER_PROJECT_NAME }} in
             "arr-stack")
@@ -107,11 +123,11 @@ jobs:
           esac
 
       - name: Deploy with Docker Compose
-        if: steps.check.outputs.should_deploy == 'true'
         run: |
           docker --context ${{ env.DOCKER_CONTEXT_NAME }} compose --file ${{ env.DOCKER_COMPOSE_FILE }} \
             --project-name ${{ env.DOCKER_PROJECT_NAME }} up -d --remove-orphans
 
       - name: Cleanup Docker context
+        if: always()
         run: |
           docker context rm ${{ env.DOCKER_CONTEXT_NAME }} --force || true
