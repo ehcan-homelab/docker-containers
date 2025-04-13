@@ -6,6 +6,8 @@
   { "host": "10.10.0.102", "stack_name": "wallos" },
   { "host": "10.10.0.102", "stack_name": "homarr" },
   { "host": "10.10.0.102", "stack_name": "open-webui" },
+  { "host": "10.10.0.102", "stack_name": "ariang" },
+  { "host": "10.10.0.102", "stack_name": "syncthing" },
   { "host": "10.10.0.102", "stack_name": "cadvisor" },
   { "host": "10.10.0.107", "stack_name": "cadvisor" },
   { "host": "10.10.0.108", "stack_name": "cadvisor" },

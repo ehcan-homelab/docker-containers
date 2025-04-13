@@ -1,0 +1,22 @@
+name: "ariang"
+
+services:
+  ariang:
+    environment:
+      - ARIA2RPCPORT=443
+      - TZ=Europe/Berlin
+      - PUID=1000
+      - PGID=1000
+    restart: unless-stopped
+    container_name: ariang
+    image: hurlenko/aria2-ariang
+    ports:
+      - 8077:8080
+    volumes:
+      - /data/ariang/data:/aria2/conf
+      - media-server:/media-server
+
+volumes:
+  media-server:
+    name: media-server
+    external: true
