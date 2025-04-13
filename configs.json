@@ -1,0 +1,15 @@
+[
+  { "host": "10.10.0.102", "stack_name": "arr-stack" },
+  { "host": "10.10.0.102", "stack_name": "portainer" },
+  { "host": "10.10.0.102", "stack_name": "uptime-kuma" },
+  { "host": "10.10.0.102", "stack_name": "n8n" },
+  { "host": "10.10.0.102", "stack_name": "wallos" },
+  { "host": "10.10.0.102", "stack_name": "homarr" },
+  { "host": "10.10.0.102", "stack_name": "open-webui" },
+  { "host": "10.10.0.102", "stack_name": "cadvisor" },
+  { "host": "10.10.0.107", "stack_name": "cadvisor" },
+  { "host": "10.10.0.108", "stack_name": "cadvisor" },
+  { "host": "10.10.0.102", "stack_name": "watchtower", "server": "docker" },
+  { "host": "10.10.0.107", "stack_name": "watchtower", "server": "traefik" },
+  { "host": "10.10.0.108", "stack_name": "watchtower", "server": "grafana" }
+]
