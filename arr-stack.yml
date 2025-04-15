@@ -118,6 +118,9 @@ services:
     restart: unless-stopped
     volumes:
       - /data/checkrr/config.yaml:/etc/checkrr/config.yaml:ro
+    environment:
+      API_KEY_RADARR: ${API_KEY_RADARR}
+      API_KEY_SONARR: ${API_KEY_SONARR}
 
 volumes:
   media-server:

@@ -84,6 +84,8 @@ jobs:
           case ${{ env.DOCKER_PROJECT_NAME }} in
             "arr-stack")
               echo "${{ secrets.ARR_CIFS }}" >> $GITHUB_ENV
+              echo "API_KEY_RADARR=${{ secrets.CHECKRR_API_KEY_RADARR }}" >> $GITHUB_ENV
+              echo "API_KEY_SONARR=${{ secrets.CHECKRR_API_KEY_SONARR }}" >> $GITHUB_ENV
               ;;
             "open-webui")
               echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
