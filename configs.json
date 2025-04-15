@@ -1,5 +1,14 @@
 [
-	{ "host": "10.10.0.102", "stack_name": "arr-stack" },
+	{
+		"host": "10.10.0.102",
+		"stack_name": "arr-stack",
+		"data": [
+			{
+				"from": "data/arr-stack/checkrr/config.yaml",
+				"to": "/data/checkrr/config.yaml"
+			}
+		]
+	},
 	{ "host": "10.10.0.102", "stack_name": "portainer" },
 	{ "host": "10.10.0.102", "stack_name": "uptime-kuma" },
 	{ "host": "10.10.0.102", "stack_name": "n8n" },

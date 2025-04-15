@@ -1,4 +1,4 @@
-sleep_time: 1m
+sleep_time: 2m
 log_level: info
 clients:
   - name: radarr
