@@ -1,0 +1,70 @@
+model_list:
+  ############################ Antropic Models ############################
+  - model_name: "Claude 3.5 Sonnet"
+    litellm_params:
+      model: openrouter/anthropic/claude-3.5-sonnet
+      api_key: "os.environ/OPEN_ROUTER_API_KEY"
+
+  - model_name: "Claude 3.7 Sonnet"
+    litellm_params:
+      model: "openrouter/anthropic/claude-3.7-sonnet"
+      api_key: "os.environ/OPEN_ROUTER_API_KEY"
+
+  ############################ Google Models ############################
+  - model_name: "Gemini 2.0"
+    litellm_params:
+      model: openrouter/google/gemini-2.0-flash-001
+      api_key: "os.environ/OPEN_ROUTER_API_KEY"
+
+  - model_name: "Gemini 2.5 Pro"
+    litellm_params:
+      model: openrouter/google/gemini-2.5-pro-exp-03-25:free
+      api_key: "os.environ/OPEN_ROUTER_API_KEY"
+
+  ############################ DeepSeek Models ############################
+  - model_name: "DeepSeek R1"
+    litellm_params:
+      model: "openrouter/deepseek/deepseek-r1"
+      api_key: "os.environ/OPEN_ROUTER_API_KEY"
+
+  - model_name: "DeepSeek V3"
+    litellm_params:
+      model: "openrouter/deepseek/deepseek-chat-v3-0324"
+      api_key: "os.environ/OPEN_ROUTER_API_KEY"
+
+  ############################ xAi Models ############################
+  - model_name: "xAI: Grok 3 Beta"
+    litellm_params:
+      model: "openrouter/x-ai/grok-3-beta"
+      api_key: "os.environ/OPEN_ROUTER_API_KEY"
+
+  - model_name: "xAI: Grok 3 Mini Beta"
+    litellm_params:
+      model: "openrouter/x-ai/grok-3-mini-beta"
+      api_key: "os.environ/OPEN_ROUTER_API_KEY"
+
+  ############################ OpenAI Models ############################
+  - model_name: "GPT o3 Mini"
+    litellm_params:
+      model: "openai/o3-mini"
+      api_key: "os.environ/OPENAI_API_KEY"
+
+  - model_name: "GPT o1"
+    litellm_params:
+      model: "openai/o1"
+      api_key: "os.environ/OPENAI_API_KEY"
+
+  - model_name: "GPT 4.5"
+    litellm_params:
+      model: "openai/gpt-4.5-preview"
+      api_key: "os.environ/OPENAI_API_KEY"
+
+  - model_name: "GPT 4o"
+    litellm_params:
+      model: openai/gpt-4o
+      api_key: "os.environ/OPENAI_API_KEY"
+
+  - model_name: "GPT 4o Mini"
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: "os.environ/OPENAI_API_KEY"

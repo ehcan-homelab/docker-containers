@@ -1,0 +1,23 @@
+sleep_time: 1m
+log_level: info
+clients:
+  - name: radarr
+    host: http://radarr:7878
+    conditions:
+      waiting_threshold: 5m
+      download_timeout_threshold: 48h
+      average_speed_threshold: 256000
+    options:
+      blocklist: true
+      keep_in_client: false
+      skip_redownload: false
+  - name: sonarr
+    host: http://sonarr:8989
+    conditions:
+      waiting_threshold: 5m
+      download_timeout_threshold: 24h
+      average_speed_threshold: 256000
+    options:
+      blocklist: true
+      keep_in_client: false
+      skip_redownload: false

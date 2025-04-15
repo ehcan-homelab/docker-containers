@@ -25,33 +25,47 @@ jobs:
         uses: tj-actions/changed-files@v46
         with:
           files: |
-            *.yml
-            *.yaml
+            **.yml
+            **.yaml
 
       - name: Set dynamic matrix
         id: set-matrix
         run: |
-          CONFIGS=$(cat configs.json)
           CHANGED_FILES='${{ steps.changed-files.outputs.all_changed_and_modified_files }}'
+          CHANGED_STACKS_ARRAY=()
 
-          FILTERED_CONFIGS=$(echo "$CONFIGS" | jq -c --arg changed_files "$CHANGED_FILES" '
+          for file in $CHANGED_FILES; do
+              # Check if the file is a root YAML file
+              if [[ $file =~ ^([^/]+)\.yml$ ]]; then
+                  stack_name="${BASH_REMATCH[1]}"
+                  CHANGED_STACKS_ARRAY+=("$stack_name")
+              # Check if the file is in a data/{{stack_name}} directory
+              elif [[ $file =~ ^data/([^/]+)/ ]]; then
+                  stack_name="${BASH_REMATCH[1]}"
+                  CHANGED_STACKS_ARRAY+=("$stack_name")
+              fi
+          done
+          CHANGED_STACKS=$(printf "%s " "${CHANGED_STACKS_ARRAY[@]}")
+          CHANGED_STACKS="${CHANGED_STACKS% }"
+
+          CONFIGS=$(cat configs.json)
+
+          FILTERED_CONFIGS=$(echo "$CONFIGS" | jq -c --arg changed_stacks "$CHANGED_STACKS" '
             [.[] |
                 .stack_name as $stack_name |
                 select(
-                ($changed_files | split(" ") | index($stack_name + ".yml")) != null or
-                ($changed_files | split(" ") | index($stack_name + ".yaml")) != null
+                  ($changed_stacks | split(" ") | index($stack_name)) != null
                 )
             ]
           ')
 
-          # Check if we have any configurations to deploy
           if [ "$(echo "$FILTERED_CONFIGS" | jq 'length')" -gt 0 ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
 
-          # Set the matrix output
+          echo $FILTERED_CONFIGS
           echo "matrix=$(echo "$FILTERED_CONFIGS" | jq -c '{config: .}')" >> $GITHUB_OUTPUT
 
   deploy:
@@ -109,6 +123,16 @@ jobs:
               esac
               ;;
           esac
+
+      - name: Copy data files
+        if: ${{ matrix.config.data }}
+        run: |
+          for item in $(echo '${{ toJson(matrix.config.data) }}' | jq -c '.[]'); do
+            FROM=$(echo "$item" | jq -r '.from')
+            TO=$(echo "$item" | jq -r '.to')
+            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+              -r "$FROM" ${{ secrets.SSH_USER }}@${{ matrix.config.host }}:"$TO"
+          done
 
       - name: Deploy with Docker Compose
         run: |
