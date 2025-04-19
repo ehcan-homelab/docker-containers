@@ -68,3 +68,13 @@ model_list:
     litellm_params:
       model: openai/gpt-4o-mini
       api_key: "os.environ/OPENAI_API_KEY"
+
+  - model_name: "GPT 4.1"
+    litellm_params:
+      model: openai/gpt-4.1
+      api_key: "os.environ/OPENAI_API_KEY"
+
+  - model_name: "GPT 4.1 Mini"
+    litellm_params:
+      model: openai/gpt-4.1-mini
+      api_key: "os.environ/OPENAI_API_KEY"
