@@ -15,7 +15,6 @@ x-arr-service: &x-arr-service
   restart: unless-stopped
   extra_hosts:
     - "host.jellyfin.server:192.168.2.101"
-    - "host.docker.server:192.168.2.102"
 
 services:
   sonarr:
@@ -121,18 +120,6 @@ services:
     environment:
       API_KEY_RADARR: ${API_KEY_RADARR}
       API_KEY_SONARR: ${API_KEY_SONARR}
-
-  lingarr:
-    <<: *x-arr-service
-    image: lingarr/lingarr:latest
-    container_name: lingarr
-    environment:
-      - ASPNETCORE_URLS=http://+:9876
-    ports:
-      - "9876:9876"
-    volumes:
-      - /data/lingarr/data:/app/config
-      - media-server:/media-server
 
 volumes:
   media-server:
