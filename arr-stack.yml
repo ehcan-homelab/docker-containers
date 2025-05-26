@@ -115,12 +115,23 @@ services:
     <<: *x-arr-service
     container_name: checkrr
     image: soheilrt/checkrr:latest
-    restart: unless-stopped
     volumes:
       - /data/checkrr/config.yaml:/etc/checkrr/config.yaml:ro
     environment:
       API_KEY_RADARR: ${API_KEY_RADARR}
       API_KEY_SONARR: ${API_KEY_SONARR}
+
+  lingarr:
+    <<: *x-arr-service
+    image: lingarr/lingarr:latest
+    container_name: lingarr
+    environment:
+      - ASPNETCORE_URLS=http://+:9876
+    ports:
+      - "9876:9876"
+    volumes:
+      - /data/lingarr/data:/app/config
+      - media-server:/media-server
 
 volumes:
   media-server:
