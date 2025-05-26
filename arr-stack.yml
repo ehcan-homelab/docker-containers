@@ -15,6 +15,7 @@ x-arr-service: &x-arr-service
   restart: unless-stopped
   extra_hosts:
     - "host.jellyfin.server:192.168.2.101"
+    - "host.docker.server:192.168.2.102"
 
 services:
   sonarr:
