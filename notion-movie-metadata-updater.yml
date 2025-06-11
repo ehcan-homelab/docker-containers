@@ -1,0 +1,12 @@
+services:
+  notion-movie-metadata-updater:
+    image: ghcr.io/ehcaning/notion-movie-metadata-updater:latest
+    container_name: notion-movie-metadata-updater
+    environment:
+      OMDB_API_KEY: ${OMDB_API_KEY}
+      NOTION_TOKEN: ${NOTION_TOKEN}
+      NOTION_DB_ID: ${NOTION_DB_ID}
+      SLEEP_TIME: 3600
+      NOTION_PAGE_SIZE: 20
+      TZ: "Europe/Berlin"
+    restart: unless-stopped

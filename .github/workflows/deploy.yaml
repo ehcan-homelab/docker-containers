@@ -101,6 +101,11 @@ jobs:
               echo "API_KEY_RADARR=${{ secrets.CHECKRR_API_KEY_RADARR }}" >> $GITHUB_ENV
               echo "API_KEY_SONARR=${{ secrets.CHECKRR_API_KEY_SONARR }}" >> $GITHUB_ENV
               ;;
+            "notion-movie-metadata-updater")
+              echo "OMDB_API_KEY=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_OMDB_API_KEY }}" >> $GITHUB_ENV
+              echo "NOTION_TOKEN=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_NOTION_TOKEN }}" >> $GITHUB_ENV
+              echo "NOTION_DB_ID=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_NOTION_DB_ID }}" >> $GITHUB_ENV
+              ;;
             "open-webui")
               echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
               echo "OPEN_WEBUI_SECRET_KEY=${{ secrets.OPEN_WEBUI_SECRET_KEY }}" >> $GITHUB_ENV
