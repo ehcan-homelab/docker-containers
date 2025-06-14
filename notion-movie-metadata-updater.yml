@@ -4,10 +4,14 @@ services:
     container_name: notion-movie-metadata-updater
     ports:
       - "9181:${METRICS_HTTP_PORT:-8000}"
+    volumes:
+      - /data/notion-movie-metadata-updater/data:/app/json_data
     environment:
       OMDB_API_KEY: ${OMDB_API_KEY}
       NOTION_TOKEN: ${NOTION_TOKEN}
       NOTION_DB_ID: ${NOTION_DB_ID}
+      TVTIME_USERNAME: ${TVTIME_USERNAME}
+      TVTIME_PASSWORD: ${TVTIME_PASSWORD}
       SLEEP_TIME: 3600
       NOTION_PAGE_SIZE: 20
       TZ: "Europe/Berlin"
