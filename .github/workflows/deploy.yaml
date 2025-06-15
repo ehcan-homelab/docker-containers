@@ -107,6 +107,7 @@ jobs:
               echo "NOTION_DB_ID=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_NOTION_DB_ID }}" >> $GITHUB_ENV
               echo "TVTIME_USERNAME=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_TVTIME_USERNAME }}" >> $GITHUB_ENV
               echo "TVTIME_PASSWORD=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_TVTIME_PASSWORD }}" >> $GITHUB_ENV
+              echo "API_TOKEN=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_API_TOKEN }}" >> $GITHUB_ENV
               ;;
             "open-webui")
               echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
