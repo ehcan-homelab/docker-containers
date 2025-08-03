@@ -93,6 +93,20 @@ jobs:
             create ${{ env.DOCKER_CONTEXT_NAME }} \
             --docker host=${{ env.DOCKER_HOST }}
 
+      - name: Load secret from 1Password
+        id: op-load-secret
+        uses: 1password/load-secrets-action@v2
+        with:
+          export-env: false
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          NOTION_MOVIE_METADATA_UPDATER_OMDB_API_KEY: "op://Github Actions/notion-movie-metadata-updater/OMDB_API_KEY"
+          NOTION_MOVIE_METADATA_UPDATER_NOTION_TOKEN: "op://Github Actions/notion-movie-metadata-updater/NOTION_TOKEN"
+          NOTION_MOVIE_METADATA_UPDATER_NOTION_DB_ID: "op://Github Actions/notion-movie-metadata-updater/NOTION_DB_ID"
+          NOTION_MOVIE_METADATA_UPDATER_TVTIME_USERNAME: "op://Github Actions/notion-movie-metadata-updater/TVTIME_USERNAME"
+          NOTION_MOVIE_METADATA_UPDATER_TVTIME_PASSWORD: "op://Github Actions/notion-movie-metadata-updater/TVTIME_PASSWORD"
+          NOTION_MOVIE_METADATA_UPDATER_API_TOKEN: "op://Github Actions/notion-movie-metadata-updater/API_TOKEN"
+
       - name: Inject secrets
         run: |
           case ${{ env.DOCKER_PROJECT_NAME }} in
@@ -102,12 +116,12 @@ jobs:
               echo "API_KEY_SONARR=${{ secrets.CHECKRR_API_KEY_SONARR }}" >> $GITHUB_ENV
               ;;
             "notion-movie-metadata-updater")
-              echo "OMDB_API_KEY=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_OMDB_API_KEY }}" >> $GITHUB_ENV
-              echo "NOTION_TOKEN=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_NOTION_TOKEN }}" >> $GITHUB_ENV
-              echo "NOTION_DB_ID=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_NOTION_DB_ID }}" >> $GITHUB_ENV
-              echo "TVTIME_USERNAME=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_TVTIME_USERNAME }}" >> $GITHUB_ENV
-              echo "TVTIME_PASSWORD=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_TVTIME_PASSWORD }}" >> $GITHUB_ENV
-              echo "API_TOKEN=${{ secrets.NOTION_MOVIE_METADATA_UPDATER_API_TOKEN }}" >> $GITHUB_ENV
+              echo "OMDB_API_KEY=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_OMDB_API_KEY }}" >> $GITHUB_ENV
+              echo "NOTION_TOKEN=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_NOTION_TOKEN }}" >> $GITHUB_ENV
+              echo "NOTION_DB_ID=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_NOTION_DB_ID }}" >> $GITHUB_ENV
+              echo "TVTIME_USERNAME=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_TVTIME_USERNAME }}" >> $GITHUB_ENV
+              echo "TVTIME_PASSWORD=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_TVTIME_PASSWORD }}" >> $GITHUB_ENV
+              echo "API_TOKEN=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_API_TOKEN }}" >> $GITHUB_ENV
               ;;
             "open-webui")
               echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV

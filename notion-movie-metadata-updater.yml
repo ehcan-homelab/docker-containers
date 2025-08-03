@@ -1,3 +1,4 @@
+name: notion-movie-metadata-updater
 services:
   notion-movie-metadata-updater:
     image: ghcr.io/ehcaning/notion-movie-metadata-updater:latest
