@@ -1,0 +1,16 @@
+name: playground-db
+services:
+  playground-db:
+    image: postgres:latest
+    container_name: playground-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: playground
+    ports:
+      - "5432:5432"
+    volumes:
+      - playground-db:/var/lib/postgresql/data
+volumes:
+  playground-db:

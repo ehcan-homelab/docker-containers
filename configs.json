@@ -1,36 +1,37 @@
 [
-	{
-		"host": "10.10.0.102",
-		"stack_name": "arr-stack",
-		"data": [
-			{
-				"from": "data/arr-stack/checkrr/config.yaml",
-				"to": "/data/checkrr/config.yaml"
-			}
-		]
-	},
-	{ "host": "10.10.0.102", "stack_name": "portainer" },
-	{ "host": "10.10.0.102", "stack_name": "uptime-kuma" },
-	{ "host": "10.10.0.102", "stack_name": "n8n" },
-	{ "host": "10.10.0.102", "stack_name": "wallos" },
-	{ "host": "10.10.0.102", "stack_name": "homarr" },
-	{
-		"host": "10.10.0.102",
-		"stack_name": "open-webui",
-		"data": [
-			{
-				"from": "data/open-webui/litellm/litellm.yaml",
-				"to": "/data/litellm/litellm.yaml"
-			}
-		]
-	},
-	{ "host": "10.10.0.102", "stack_name": "ariang" },
-	{ "host": "10.10.0.102", "stack_name": "syncthing" },
-	{ "host": "10.10.0.102", "stack_name": "notion-movie-metadata-updater" },
-	{ "host": "10.10.0.102", "stack_name": "cadvisor" },
-	{ "host": "10.10.0.107", "stack_name": "cadvisor" },
-	{ "host": "10.10.0.108", "stack_name": "cadvisor" },
-	{ "host": "10.10.0.102", "stack_name": "watchtower", "server": "docker" },
-	{ "host": "10.10.0.107", "stack_name": "watchtower", "server": "traefik" },
-	{ "host": "10.10.0.108", "stack_name": "watchtower", "server": "grafana" }
+  {
+    "host": "10.10.0.102",
+    "stack_name": "arr-stack",
+    "data": [
+      {
+        "from": "data/arr-stack/checkrr/config.yaml",
+        "to": "/data/checkrr/config.yaml"
+      }
+    ]
+  },
+  { "host": "10.10.0.102", "stack_name": "portainer" },
+  { "host": "10.10.0.102", "stack_name": "uptime-kuma" },
+  { "host": "10.10.0.102", "stack_name": "n8n" },
+  { "host": "10.10.0.102", "stack_name": "wallos" },
+  { "host": "10.10.0.102", "stack_name": "homarr" },
+  {
+    "host": "10.10.0.102",
+    "stack_name": "open-webui",
+    "data": [
+      {
+        "from": "data/open-webui/litellm/litellm.yaml",
+        "to": "/data/litellm/litellm.yaml"
+      }
+    ]
+  },
+  { "host": "10.10.0.102", "stack_name": "ariang" },
+  { "host": "10.10.0.102", "stack_name": "syncthing" },
+  { "host": "10.10.0.102", "stack_name": "notion-movie-metadata-updater" },
+  { "host": "10.10.0.102", "stack_name": "playground-db" },
+  { "host": "10.10.0.102", "stack_name": "cadvisor" },
+  { "host": "10.10.0.107", "stack_name": "cadvisor" },
+  { "host": "10.10.0.108", "stack_name": "cadvisor" },
+  { "host": "10.10.0.102", "stack_name": "watchtower", "server": "docker" },
+  { "host": "10.10.0.107", "stack_name": "watchtower", "server": "traefik" },
+  { "host": "10.10.0.108", "stack_name": "watchtower", "server": "grafana" }
 ]

@@ -100,20 +100,37 @@ jobs:
           export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          NOTION_MOVIE_METADATA_UPDATER_OMDB_API_KEY: "op://Github Actions/notion-movie-metadata-updater/OMDB_API_KEY"
-          NOTION_MOVIE_METADATA_UPDATER_NOTION_TOKEN: "op://Github Actions/notion-movie-metadata-updater/NOTION_TOKEN"
-          NOTION_MOVIE_METADATA_UPDATER_NOTION_DB_ID: "op://Github Actions/notion-movie-metadata-updater/NOTION_DB_ID"
-          NOTION_MOVIE_METADATA_UPDATER_TVTIME_USERNAME: "op://Github Actions/notion-movie-metadata-updater/TVTIME_USERNAME"
-          NOTION_MOVIE_METADATA_UPDATER_TVTIME_PASSWORD: "op://Github Actions/notion-movie-metadata-updater/TVTIME_PASSWORD"
-          NOTION_MOVIE_METADATA_UPDATER_API_TOKEN: "op://Github Actions/notion-movie-metadata-updater/API_TOKEN"
+
+          NOTION_MOVIE_METADATA_UPDATER_OMDB_API_KEY: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/OMDB_API_KEY"
+          NOTION_MOVIE_METADATA_UPDATER_NOTION_TOKEN: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/NOTION_TOKEN"
+          NOTION_MOVIE_METADATA_UPDATER_NOTION_DB_ID: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/NOTION_DB_ID"
+          NOTION_MOVIE_METADATA_UPDATER_TVTIME_USERNAME: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/TVTIME_USERNAME"
+          NOTION_MOVIE_METADATA_UPDATER_TVTIME_PASSWORD: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/TVTIME_PASSWORD"
+          NOTION_MOVIE_METADATA_UPDATER_API_TOKEN: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/API_TOKEN"
+
+          ARR_STACK_API_KEY_RADARR: "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/API_KEY_RADARR"
+          ARR_STACK_API_KEY_SONARR: "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/API_KEY_SONARR"
+          ARR_STACK_CIFS_USERNAME: "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_USERNAME"
+          ARR_STACK_CIFS_PASSWORD: "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_PASSWORD"
+
+          OPEN_WEBUI_OPENAI_API_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/OPENAI_API_KEY"
+          OPEN_WEBUI_SECRET_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/OPEN_WEBUI_SECRET_KEY"
+          OPEN_WEBUI_OPEN_ROUTER_API_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/OPEN_ROUTER_API_KEY"
+          OPEN_WEBUI_LITELLM_MASTER_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/LITELLM_MASTER_KEY"
+          OPEN_WEBUI_LITELLM_SALT_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/LITELLM_SALT_KEY"
+
+          PLAYGROUND_DB_POSTGRES_USER: "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/username"
+          PLAYGROUND_DB_POSTGRES_PASSWORD: "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/password"
 
       - name: Inject secrets
         run: |
           case ${{ env.DOCKER_PROJECT_NAME }} in
             "arr-stack")
               echo "${{ secrets.ARR_CIFS }}" >> $GITHUB_ENV
-              echo "API_KEY_RADARR=${{ secrets.CHECKRR_API_KEY_RADARR }}" >> $GITHUB_ENV
-              echo "API_KEY_SONARR=${{ secrets.CHECKRR_API_KEY_SONARR }}" >> $GITHUB_ENV
+              echo "CIFS_USERNAME=${{ steps.op-load-secret.outputs.ARR_STACK_CIFS_USERNAME }}" >> $GITHUB_ENV
+              echo "CIFS_PASSWORD=${{ steps.op-load-secret.outputs.ARR_STACK_CIFS_PASSWORD }}" >> $GITHUB_ENV
+              echo "API_KEY_RADARR=${{ steps.op-load-secret.outputs.ARR_STACK_API_KEY_RADARR }}" >> $GITHUB_ENV
+              echo "API_KEY_SONARR=${{ steps.op-load-secret.outputs.ARR_STACK_API_KEY_SONARR }}" >> $GITHUB_ENV
               ;;
             "notion-movie-metadata-updater")
               echo "OMDB_API_KEY=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_OMDB_API_KEY }}" >> $GITHUB_ENV
@@ -124,11 +141,15 @@ jobs:
               echo "API_TOKEN=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_API_TOKEN }}" >> $GITHUB_ENV
               ;;
             "open-webui")
-              echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
-              echo "OPEN_WEBUI_SECRET_KEY=${{ secrets.OPEN_WEBUI_SECRET_KEY }}" >> $GITHUB_ENV
-              echo "OPEN_ROUTER_API_KEY=${{ secrets.OPEN_ROUTER_API_KEY }}" >> $GITHUB_ENV
-              echo "LITELLM_MASTER_KEY=${{ secrets.LITELLM_MASTER_KEY }}" >> $GITHUB_ENV
-              echo "LITELLM_SALT_KEY=${{ secrets.LITELLM_SALT_KEY }}" >> $GITHUB_ENV
+              echo "OPENAI_API_KEY=${{ steps.op-load-secret.outputs.OPEN_WEBUI_OPENAI_API_KEY }}" >> $GITHUB_ENV
+              echo "OPEN_WEBUI_SECRET_KEY=${{ steps.op-load-secret.outputs.OPEN_WEBUI_SECRET_KEY }}" >> $GITHUB_ENV
+              echo "OPEN_ROUTER_API_KEY=${{ steps.op-load-secret.outputs.OPEN_WEBUI_OPEN_ROUTER_API_KEY }}" >> $GITHUB_ENV
+              echo "LITELLM_MASTER_KEY=${{ steps.op-load-secret.outputs.OPEN_WEBUI_LITELLM_MASTER_KEY }}" >> $GITHUB_ENV
+              echo "LITELLM_SALT_KEY=${{ steps.op-load-secret.outputs.OPEN_WEBUI_LITELLM_SALT_KEY }}" >> $GITHUB_ENV
+              ;;
+            "playground-db")
+              echo "POSTGRES_USER=${{ steps.op-load-secret.outputs.PLAYGROUND_DB_POSTGRES_USER }}" >> $GITHUB_ENV
+              echo "POSTGRES_PASSWORD=${{ steps.op-load-secret.outputs.PLAYGROUND_DB_POSTGRES_PASSWORD }}" >> $GITHUB_ENV
               ;;
             "watchtower")
               server="${{ matrix.config.server }}"
