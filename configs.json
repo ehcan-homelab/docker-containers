@@ -28,6 +28,7 @@
   { "host": "10.10.0.102", "stack_name": "syncthing" },
   { "host": "10.10.0.102", "stack_name": "notion-movie-metadata-updater" },
   { "host": "10.10.0.102", "stack_name": "playground-db" },
+  { "host": "10.10.0.102", "stack_name": "dockpeek" },
   { "host": "10.10.0.102", "stack_name": "cadvisor" },
   { "host": "10.10.0.107", "stack_name": "cadvisor" },
   { "host": "10.10.0.108", "stack_name": "cadvisor" },

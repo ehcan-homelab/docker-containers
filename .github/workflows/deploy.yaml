@@ -113,14 +113,18 @@ jobs:
           ARR_STACK_CIFS_USERNAME: "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_USERNAME"
           ARR_STACK_CIFS_PASSWORD: "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_PASSWORD"
 
-          OPEN_WEBUI_OPENAI_API_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/OPENAI_API_KEY"
-          OPEN_WEBUI_SECRET_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/OPEN_WEBUI_SECRET_KEY"
-          OPEN_WEBUI_OPEN_ROUTER_API_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/OPEN_ROUTER_API_KEY"
-          OPEN_WEBUI_LITELLM_MASTER_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/LITELLM_MASTER_KEY"
-          OPEN_WEBUI_LITELLM_SALT_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/LITELLM_SALT_KEY"
+          OPEN_WEBUI_OPENAI_API_KEY: "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPENAI_API_KEY"
+          OPEN_WEBUI_SECRET_KEY: "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPEN_WEBUI_SECRET_KEY"
+          OPEN_WEBUI_OPEN_ROUTER_API_KEY: "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPEN_ROUTER_API_KEY"
+          OPEN_WEBUI_LITELLM_MASTER_KEY: "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/LITELLM_MASTER_KEY"
+          OPEN_WEBUI_LITELLM_SALT_KEY: "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/LITELLM_SALT_KEY"
 
           PLAYGROUND_DB_POSTGRES_USER: "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/username"
           PLAYGROUND_DB_POSTGRES_PASSWORD: "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/password"
+
+          DOCKPEEK_SECRET_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/SECRET_KEY"
+          DOCKPEEK_USERNAME: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/username"
+          DOCKPEEK_PASSWORD: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/password"
 
       - name: Inject secrets
         run: |
@@ -150,6 +154,11 @@ jobs:
             "playground-db")
               echo "POSTGRES_USER=${{ steps.op-load-secret.outputs.PLAYGROUND_DB_POSTGRES_USER }}" >> $GITHUB_ENV
               echo "POSTGRES_PASSWORD=${{ steps.op-load-secret.outputs.PLAYGROUND_DB_POSTGRES_PASSWORD }}" >> $GITHUB_ENV
+              ;;
+            "dockpeek")
+              echo "SECRET_KEY=${{ steps.op-load-secret.outputs.DOCKPEEK_SECRET_KEY }}" >> $GITHUB_ENV
+              echo "USERNAME=${{ steps.op-load-secret.outputs.DOCKPEEK_USERNAME }}" >> $GITHUB_ENV
+              echo "PASSWORD=${{ steps.op-load-secret.outputs.DOCKPEEK_PASSWORD }}" >> $GITHUB_ENV
               ;;
             "watchtower")
               server="${{ matrix.config.server }}"
