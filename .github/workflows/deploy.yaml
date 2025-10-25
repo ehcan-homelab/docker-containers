@@ -78,7 +78,7 @@ jobs:
       fail-fast: false
 
     env:
-      DOCKER_HOST: tcp://${{ matrix.config.host }}:2375
+      DOCKER_HOST: ${{ matrix.config.host }}
       DOCKER_CONTEXT_NAME: ${{ matrix.config.stack_name }}-ctx
       DOCKER_COMPOSE_FILE: ${{ matrix.config.stack_name }}.yml
       DOCKER_PROJECT_NAME: ${{ matrix.config.stack_name }}
