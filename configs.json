@@ -12,7 +12,6 @@
   { "host": "tcp://10.10.0.102:2375", "stack_name": "portainer" },
   { "host": "tcp://10.10.0.102:2375", "stack_name": "uptime-kuma" },
   { "host": "tcp://10.10.0.102:2375", "stack_name": "n8n" },
-  { "host": "tcp://10.10.0.102:2375", "stack_name": "wallos" },
   { "host": "tcp://10.10.0.102:2375", "stack_name": "homarr" },
   {
     "host": "tcp://10.10.0.102:2375",
@@ -27,9 +26,7 @@
   { "host": "tcp://10.10.0.102:2375", "stack_name": "ariang" },
   { "host": "tcp://10.10.0.102:2375", "stack_name": "syncthing" },
   { "host": "tcp://10.10.0.102:2375", "stack_name": "notion-movie-metadata-updater" },
-  { "host": "ssh://ehcan@remote-docker-host", "stack_name": "notion-movie-metadata-updater" },
   { "host": "tcp://10.10.0.102:2375", "stack_name": "playground-db" },
-  { "host": "tcp://10.10.0.102:2375", "stack_name": "dockpeek" },
   { "host": "tcp://10.10.0.102:2375", "stack_name": "cadvisor" },
   { "host": "tcp://10.10.0.107:2375", "stack_name": "cadvisor" },
   { "host": "tcp://10.10.0.108:2375", "stack_name": "cadvisor" },
