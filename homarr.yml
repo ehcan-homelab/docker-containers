@@ -1,9 +1,8 @@
 name: "homarr"
-
 services:
   homarr:
     container_name: homarr
-    image: ghcr.io/ajnart/homarr:latest
+    image: ghcr.io/homarr-labs/homarr:latest
     restart: unless-stopped
     volumes:
       - /data/homarr/configs:/app/data/configs
