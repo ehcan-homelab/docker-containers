@@ -126,6 +126,8 @@ jobs:
           DOCKPEEK_USERNAME: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/username"
           DOCKPEEK_PASSWORD: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/password"
 
+          HOMARR_SECRET_ENCRYPTION_KEY: "op://Github Actions/Homarr SECRET_ENCRYPTION_KEY/password"
+
       - name: Inject secrets
         run: |
           case ${{ env.DOCKER_PROJECT_NAME }} in
@@ -159,6 +161,9 @@ jobs:
               echo "SECRET_KEY=${{ steps.op-load-secret.outputs.DOCKPEEK_SECRET_KEY }}" >> $GITHUB_ENV
               echo "USERNAME=${{ steps.op-load-secret.outputs.DOCKPEEK_USERNAME }}" >> $GITHUB_ENV
               echo "PASSWORD=${{ steps.op-load-secret.outputs.DOCKPEEK_PASSWORD }}" >> $GITHUB_ENV
+              ;;
+            "homarr")
+              echo "SECRET_ENCRYPTION_KEY=${{ steps.op-load-secret.outputs.HOMARR_SECRET_ENCRYPTION_KEY }}" >> $GITHUB_ENV
               ;;
             "watchtower")
               server="${{ matrix.config.server }}"

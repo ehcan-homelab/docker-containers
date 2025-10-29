@@ -10,5 +10,6 @@ services:
       - /data/homarr/data:/data
     environment:
       DISABLE_ANALYTICS: true
+      SECRET_ENCRYPTION_KEY: ${SECRET_ENCRYPTION_KEY}
     ports:
       - '7575:7575'
