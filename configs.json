@@ -32,5 +32,6 @@
   { "host": "tcp://10.10.0.108:2375", "stack_name": "cadvisor" },
   { "host": "tcp://10.10.0.102:2375", "stack_name": "watchtower", "server": "docker" },
   { "host": "tcp://10.10.0.107:2375", "stack_name": "watchtower", "server": "traefik" },
-  { "host": "tcp://10.10.0.108:2375", "stack_name": "watchtower", "server": "grafana" }
+  { "host": "tcp://10.10.0.108:2375", "stack_name": "watchtower", "server": "grafana" },
+  { "host": "tcp://192.168.2.149:2375", "stack_name": "watchtower", "server": "truenas" }
 ]
