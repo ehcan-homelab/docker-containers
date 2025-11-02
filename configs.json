@@ -1,7 +1,7 @@
 [
   {
-    "host": "10.10.0.102",
-    "docker_host": "tcp://10.10.0.102:2375",
+    "host": "192.168.2.102",
+    "docker_host": "tcp://192.168.2.102:2375",
     "stack_name": "arr-stack",
     "secrets": {
       "CIFS_USERNAME": "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_USERNAME",
@@ -16,18 +16,18 @@
       }
     ]
   },
-  { "host": "10.10.0.102", "docker_host": "tcp://10.10.0.102:2375", "stack_name": "portainer" },
-  { "host": "10.10.0.102", "docker_host": "tcp://10.10.0.102:2375", "stack_name": "uptime-kuma" },
-  { "host": "10.10.0.102", "docker_host": "tcp://10.10.0.102:2375", "stack_name": "n8n" },
+  { "host": "192.168.2.102", "docker_host": "tcp://192.168.2.102:2375", "stack_name": "portainer" },
+  { "host": "192.168.2.102", "docker_host": "tcp://192.168.2.102:2375", "stack_name": "uptime-kuma" },
+  { "host": "192.168.2.102", "docker_host": "tcp://192.168.2.102:2375", "stack_name": "n8n" },
   {
-    "host": "10.10.0.102",
-    "docker_host": "tcp://10.10.0.102:2375",
+    "host": "192.168.2.102",
+    "docker_host": "tcp://192.168.2.102:2375",
     "stack_name": "homarr",
     "secrets": { "SECRET_ENCRYPTION_KEY": "op://Github Actions/Homarr SECRET_ENCRYPTION_KEY/password" }
   },
   {
-    "host": "10.10.0.102",
-    "docker_host": "tcp://10.10.0.102:2375",
+    "host": "192.168.2.102",
+    "docker_host": "tcp://192.168.2.102:2375",
     "stack_name": "open-webui",
     "secrets": {
       "OPENAI_API_KEY": "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPENAI_API_KEY",
@@ -43,11 +43,11 @@
       }
     ]
   },
-  { "host": "10.10.0.102", "docker_host": "tcp://10.10.0.102:2375", "stack_name": "ariang" },
-  { "host": "10.10.0.102", "docker_host": "tcp://10.10.0.102:2375", "stack_name": "syncthing" },
+  { "host": "192.168.2.102", "docker_host": "tcp://192.168.2.102:2375", "stack_name": "ariang" },
+  { "host": "192.168.2.102", "docker_host": "tcp://192.168.2.102:2375", "stack_name": "syncthing" },
   {
-    "host": "10.10.0.102",
-    "docker_host": "tcp://10.10.0.102:2375",
+    "host": "192.168.2.102",
+    "docker_host": "tcp://192.168.2.102:2375",
     "stack_name": "notion-movie-metadata-updater",
     "secrets": {
       "OMDB_API_KEY": "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/OMDB_API_KEY",
@@ -59,20 +59,20 @@
     }
   },
   {
-    "host": "10.10.0.102",
-    "docker_host": "tcp://10.10.0.102:2375",
+    "host": "192.168.2.102",
+    "docker_host": "tcp://192.168.2.102:2375",
     "stack_name": "playground-db",
     "secrets": {
       "POSTGRES_USER": "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/username",
       "POSTGRES_PASSWORD": "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/password"
     }
   },
-  { "host": "10.10.0.102", "docker_host": "tcp://10.10.0.102:2375", "stack_name": "cadvisor" },
-  { "host": "10.10.0.107", "docker_host": "tcp://10.10.0.107:2375", "stack_name": "cadvisor" },
-  { "host": "10.10.0.108", "docker_host": "tcp://10.10.0.108:2375", "stack_name": "cadvisor" },
+  { "host": "192.168.2.102", "docker_host": "tcp://192.168.2.102:2375", "stack_name": "cadvisor" },
+  { "host": "192.168.2.107", "docker_host": "tcp://192.168.2.107:2375", "stack_name": "cadvisor" },
+  { "host": "192.168.2.108", "docker_host": "tcp://192.168.2.108:2375", "stack_name": "cadvisor" },
   {
-    "host": "10.10.0.102",
-    "docker_host": "tcp://10.10.0.102:2375",
+    "host": "192.168.2.102",
+    "docker_host": "tcp://192.168.2.102:2375",
     "stack_name": "watchtower",
     "server": "docker",
     "secrets": {
@@ -80,8 +80,8 @@
     }
   },
   {
-    "host": "10.10.0.107",
-    "docker_host": "tcp://10.10.0.107:2375",
+    "host": "192.168.2.107",
+    "docker_host": "tcp://192.168.2.107:2375",
     "stack_name": "watchtower",
     "server": "traefik",
     "secrets": {
@@ -89,8 +89,8 @@
     }
   },
   {
-    "host": "10.10.0.108",
-    "docker_host": "tcp://10.10.0.108:2375",
+    "host": "192.168.2.108",
+    "docker_host": "tcp://192.168.2.108:2375",
     "stack_name": "watchtower",
     "server": "grafana",
     "secrets": {

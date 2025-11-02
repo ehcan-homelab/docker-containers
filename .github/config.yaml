@@ -1,0 +1,92 @@
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: arr-stack
+  secrets:
+    CIFS_USERNAME: 'op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_USERNAME'
+    CIFS_PASSWORD: 'op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_PASSWORD'
+    API_KEY_RADARR: 'op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/API_KEY_RADARR'
+    API_KEY_SONARR: 'op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/API_KEY_SONARR'
+  data:
+    - from: data/arr-stack/checkrr/config.yaml
+      to: /data/checkrr/config.yaml
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: portainer
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: uptime-kuma
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: n8n
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: homarr
+  secrets:
+    SECRET_ENCRYPTION_KEY: 'op://Github Actions/Homarr SECRET_ENCRYPTION_KEY/password'
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: open-webui
+  secrets:
+    OPENAI_API_KEY: 'op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPENAI_API_KEY'
+    OPEN_WEBUI_SECRET_KEY: 'op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPEN_WEBUI_SECRET_KEY'
+    OPEN_ROUTER_API_KEY: 'op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPEN_ROUTER_API_KEY'
+    LITELLM_MASTER_KEY: 'op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/LITELLM_MASTER_KEY'
+    LITELLM_SALT_KEY: 'op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/LITELLM_SALT_KEY'
+  data:
+    - from: data/open-webui/litellm/litellm.yaml
+      to: /data/litellm/litellm.yaml
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: ariang
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: syncthing
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: notion-movie-metadata-updater
+  secrets:
+    OMDB_API_KEY: 'op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/OMDB_API_KEY'
+    NOTION_TOKEN: 'op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/NOTION_TOKEN'
+    NOTION_DB_ID: 'op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/NOTION_DB_ID'
+    TVTIME_USERNAME: 'op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/TVTIME_USERNAME'
+    TVTIME_PASSWORD: 'op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/TVTIME_PASSWORD'
+    API_TOKEN: 'op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/API_TOKEN'
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: playground-db
+  secrets:
+    POSTGRES_USER: 'op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/username'
+    POSTGRES_PASSWORD: 'op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/password'
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: cadvisor
+- host: 10.10.0.107
+  docker_host: 'tcp://10.10.0.107:2375'
+  stack_name: cadvisor
+- host: 10.10.0.108
+  docker_host: 'tcp://10.10.0.108:2375'
+  stack_name: cadvisor
+- host: 10.10.0.102
+  docker_host: 'tcp://10.10.0.102:2375'
+  stack_name: watchtower
+  server: docker
+  secrets:
+    DISCORD_TOKEN: 'op://Github Actions/Discord Tokens/DISCORD_TOKEN_DOCKER'
+- host: 10.10.0.107
+  docker_host: 'tcp://10.10.0.107:2375'
+  stack_name: watchtower
+  server: traefik
+  secrets:
+    DISCORD_TOKEN: 'op://Github Actions/Discord Tokens/DISCORD_TOKEN_TRAEFIK'
+- host: 10.10.0.108
+  docker_host: 'tcp://10.10.0.108:2375'
+  stack_name: watchtower
+  server: grafana
+  secrets:
+    DISCORD_TOKEN: 'op://Github Actions/Discord Tokens/DISCORD_TOKEN_GRAFANA'
+- host: 192.168.2.149
+  docker_host: 'tcp://192.168.2.149:2375'
+  stack_name: watchtower
+  server: truenas
+  secrets:
+    DISCORD_TOKEN: 'op://Github Actions/Discord Tokens/DISCORD_TOKEN_TRUENAS'

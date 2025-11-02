@@ -10,7 +10,7 @@ on:
 jobs:
   prepare_matrix:
     name: Prepare Matrix
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
       has_changes: ${{ steps.set-matrix.outputs.has_changes }}
@@ -72,7 +72,7 @@ jobs:
     needs: prepare_matrix
     if: needs.prepare_matrix.outputs.has_changes == 'true'
     name: Deploy (${{ matrix.config.stack_name }}, ${{ matrix.config.host }})
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.prepare_matrix.outputs.matrix) }}
       fail-fast: false
@@ -87,6 +87,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:github-actions
 
       - name: Set up Docker context
         run: |
