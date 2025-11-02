@@ -93,101 +93,27 @@ jobs:
             create ${{ env.DOCKER_CONTEXT_NAME }} \
             --docker host=${{ env.DOCKER_HOST }}
 
+      - name: Prepare 1Password env vars
+        if: ${{ matrix.config.secrets }}
+        run: |
+          # Dump the secrets object provided by the matrix into a file and convert to entries
+          echo '${{ toJson(matrix.config.secrets) }}' > /tmp/secrets.json
+          # Iterate over key/value pairs and append them to GITHUB_ENV so the 1Password action can pick them up.
+          for entry in $(jq -r 'to_entries[] | @base64' /tmp/secrets.json); do
+            _jq() { echo "${entry}" | base64 --decode | jq -r "${1}"; }
+            KEY=$(_jq '.key')
+            VAL=$(_jq '.value')
+            # Ensure values containing spaces or special chars are preserved
+            echo "${KEY}=${VAL}" >> $GITHUB_ENV
+          done
+
       - name: Load secret from 1Password
-        id: op-load-secret
-        uses: 1password/load-secrets-action@v2
+        if: ${{ matrix.config.secrets }}
+        uses: 1password/load-secrets-action@v3
         with:
-          export-env: false
+          export-env: true
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-
-          NOTION_MOVIE_METADATA_UPDATER_OMDB_API_KEY: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/OMDB_API_KEY"
-          NOTION_MOVIE_METADATA_UPDATER_NOTION_TOKEN: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/NOTION_TOKEN"
-          NOTION_MOVIE_METADATA_UPDATER_NOTION_DB_ID: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/NOTION_DB_ID"
-          NOTION_MOVIE_METADATA_UPDATER_TVTIME_USERNAME: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/TVTIME_USERNAME"
-          NOTION_MOVIE_METADATA_UPDATER_TVTIME_PASSWORD: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/TVTIME_PASSWORD"
-          NOTION_MOVIE_METADATA_UPDATER_API_TOKEN: "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/API_TOKEN"
-
-          ARR_STACK_API_KEY_RADARR: "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/API_KEY_RADARR"
-          ARR_STACK_API_KEY_SONARR: "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/API_KEY_SONARR"
-          ARR_STACK_CIFS_USERNAME: "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_USERNAME"
-          ARR_STACK_CIFS_PASSWORD: "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_PASSWORD"
-
-          OPEN_WEBUI_OPENAI_API_KEY: "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPENAI_API_KEY"
-          OPEN_WEBUI_SECRET_KEY: "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPEN_WEBUI_SECRET_KEY"
-          OPEN_WEBUI_OPEN_ROUTER_API_KEY: "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPEN_ROUTER_API_KEY"
-          OPEN_WEBUI_LITELLM_MASTER_KEY: "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/LITELLM_MASTER_KEY"
-          OPEN_WEBUI_LITELLM_SALT_KEY: "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/LITELLM_SALT_KEY"
-
-          PLAYGROUND_DB_POSTGRES_USER: "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/username"
-          PLAYGROUND_DB_POSTGRES_PASSWORD: "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/password"
-
-          DOCKPEEK_SECRET_KEY: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/SECRET_KEY"
-          DOCKPEEK_USERNAME: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/username"
-          DOCKPEEK_PASSWORD: "op://Github Actions/zbf5igjsezyfzqwun5vcme7nnu/password"
-
-          DISCORD_TOKEN_DOCKER: "op://Github Actions/Discord Tokens/DISCORD_TOKEN_DOCKER"
-          DISCORD_TOKEN_TRAEFIK: "op://Github Actions/Discord Tokens/DISCORD_TOKEN_TRAEFIK"
-          DISCORD_TOKEN_GRAFANA: "op://Github Actions/Discord Tokens/DISCORD_TOKEN_GRAFANA"
-          DISCORD_TOKEN_TRUENAS: "op://Github Actions/Discord Tokens/DISCORD_TOKEN_TRUENAS"
-
-          HOMARR_SECRET_ENCRYPTION_KEY: "op://Github Actions/Homarr SECRET_ENCRYPTION_KEY/password"
-
-      - name: Inject secrets
-        run: |
-          case ${{ env.DOCKER_PROJECT_NAME }} in
-            "arr-stack")
-              echo "${{ secrets.ARR_CIFS }}" >> $GITHUB_ENV
-              echo "CIFS_USERNAME=${{ steps.op-load-secret.outputs.ARR_STACK_CIFS_USERNAME }}" >> $GITHUB_ENV
-              echo "CIFS_PASSWORD=${{ steps.op-load-secret.outputs.ARR_STACK_CIFS_PASSWORD }}" >> $GITHUB_ENV
-              echo "API_KEY_RADARR=${{ steps.op-load-secret.outputs.ARR_STACK_API_KEY_RADARR }}" >> $GITHUB_ENV
-              echo "API_KEY_SONARR=${{ steps.op-load-secret.outputs.ARR_STACK_API_KEY_SONARR }}" >> $GITHUB_ENV
-              ;;
-            "notion-movie-metadata-updater")
-              echo "OMDB_API_KEY=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_OMDB_API_KEY }}" >> $GITHUB_ENV
-              echo "NOTION_TOKEN=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_NOTION_TOKEN }}" >> $GITHUB_ENV
-              echo "NOTION_DB_ID=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_NOTION_DB_ID }}" >> $GITHUB_ENV
-              echo "TVTIME_USERNAME=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_TVTIME_USERNAME }}" >> $GITHUB_ENV
-              echo "TVTIME_PASSWORD=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_TVTIME_PASSWORD }}" >> $GITHUB_ENV
-              echo "API_TOKEN=${{ steps.op-load-secret.outputs.NOTION_MOVIE_METADATA_UPDATER_API_TOKEN }}" >> $GITHUB_ENV
-              ;;
-            "open-webui")
-              echo "OPENAI_API_KEY=${{ steps.op-load-secret.outputs.OPEN_WEBUI_OPENAI_API_KEY }}" >> $GITHUB_ENV
-              echo "OPEN_WEBUI_SECRET_KEY=${{ steps.op-load-secret.outputs.OPEN_WEBUI_SECRET_KEY }}" >> $GITHUB_ENV
-              echo "OPEN_ROUTER_API_KEY=${{ steps.op-load-secret.outputs.OPEN_WEBUI_OPEN_ROUTER_API_KEY }}" >> $GITHUB_ENV
-              echo "LITELLM_MASTER_KEY=${{ steps.op-load-secret.outputs.OPEN_WEBUI_LITELLM_MASTER_KEY }}" >> $GITHUB_ENV
-              echo "LITELLM_SALT_KEY=${{ steps.op-load-secret.outputs.OPEN_WEBUI_LITELLM_SALT_KEY }}" >> $GITHUB_ENV
-              ;;
-            "playground-db")
-              echo "POSTGRES_USER=${{ steps.op-load-secret.outputs.PLAYGROUND_DB_POSTGRES_USER }}" >> $GITHUB_ENV
-              echo "POSTGRES_PASSWORD=${{ steps.op-load-secret.outputs.PLAYGROUND_DB_POSTGRES_PASSWORD }}" >> $GITHUB_ENV
-              ;;
-            "dockpeek")
-              echo "SECRET_KEY=${{ steps.op-load-secret.outputs.DOCKPEEK_SECRET_KEY }}" >> $GITHUB_ENV
-              echo "USERNAME=${{ steps.op-load-secret.outputs.DOCKPEEK_USERNAME }}" >> $GITHUB_ENV
-              echo "PASSWORD=${{ steps.op-load-secret.outputs.DOCKPEEK_PASSWORD }}" >> $GITHUB_ENV
-              ;;
-            "homarr")
-              echo "SECRET_ENCRYPTION_KEY=${{ steps.op-load-secret.outputs.HOMARR_SECRET_ENCRYPTION_KEY }}" >> $GITHUB_ENV
-              ;;
-            "watchtower")
-              server="${{ matrix.config.server }}"
-              case "$server" in
-                "docker")
-                  echo "DISCORD_TOKEN=${{ steps.op-load-secret.outputs.DISCORD_TOKEN_DOCKER }}" >> $GITHUB_ENV
-                  ;;
-                "traefik")
-                  echo "DISCORD_TOKEN=${{ steps.op-load-secret.outputs.DISCORD_TOKEN_TRAEFIK }}" >> $GITHUB_ENV
-                  ;;
-                "grafana")
-                  echo "DISCORD_TOKEN=${{ steps.op-load-secret.outputs.DISCORD_TOKEN_GRAFANA }}" >> $GITHUB_ENV
-                  ;;
-                "truenas")
-                  echo "DISCORD_TOKEN=${{ steps.op-load-secret.outputs.DISCORD_TOKEN_TRUENAS }}" >> $GITHUB_ENV
-                  ;;
-              esac
-              ;;
-          esac
 
       - name: Copy data files
         if: ${{ matrix.config.data }}
