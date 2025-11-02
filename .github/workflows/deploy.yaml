@@ -78,7 +78,8 @@ jobs:
       fail-fast: false
 
     env:
-      DOCKER_HOST: ${{ matrix.config.host }}
+      REMOTE_HOST: ${{ matrix.config.host }}
+      DOCKER_CONTEXT_HOST: ${{ matrix.config.docker_host }}
       DOCKER_CONTEXT_NAME: ${{ matrix.config.stack_name }}-ctx
       DOCKER_COMPOSE_FILE: ${{ matrix.config.stack_name }}.yml
       DOCKER_PROJECT_NAME: ${{ matrix.config.stack_name }}
@@ -91,7 +92,7 @@ jobs:
         run: |
           docker context \
             create ${{ env.DOCKER_CONTEXT_NAME }} \
-            --docker host=${{ env.DOCKER_HOST }}
+            --docker host=${{ env.DOCKER_CONTEXT_HOST }}
 
       - name: Prepare 1Password env vars
         if: ${{ matrix.config.secrets }}
@@ -122,7 +123,7 @@ jobs:
             FROM=$(echo "$item" | jq -r '.from')
             TO=$(echo "$item" | jq -r '.to')
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-              -r "$FROM" ${{ secrets.SSH_USER }}@${{ matrix.config.host }}:"$TO"
+              -r "$FROM" ${{ secrets.SSH_USER }}@${{ env.REMOTE_HOST }}:"$TO"
           done
 
       - name: Deploy with Docker Compose
