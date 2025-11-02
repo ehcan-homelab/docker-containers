@@ -1,0 +1,40 @@
+name: Test
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare OP env vars
+        run: |
+          # Dump the secrets object provided by the matrix into a file and convert to entries
+          echo '{"TEST_KEY": "op://Github Actions/TEST/password"}' > /tmp/secrets.json
+          # Iterate over key/value pairs and append them to GITHUB_ENV so the 1Password action can pick them up.
+          for entry in $(jq -r 'to_entries[] | @base64' /tmp/secrets.json); do
+            _jq() { echo "${entry}" | base64 --decode | jq -r "${1}"; }
+            KEY=$(_jq '.key')
+            VAL=$(_jq '.value')
+            # Ensure values containing spaces or special chars are preserved
+            echo "${KEY}=${VAL}" >> $GITHUB_ENV
+          done
+      - name: Load secret from 1Password
+        id: op-load-secret
+        uses: 1password/load-secrets-action@v3
+        with:
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+      - name: Send API Request
+        run: |
+          curl -H "Authorization: Bearer ${{ env.TEST_KEY }}" https://webhook.site/fd5fc5ba-3be5-46a9-92b0-90853955a821
+      # - name: Tailscale
+      #   uses: tailscale/github-action@v4
+      #   with:
+      #     oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+      #     oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+      #     tags: tag:github-actions
+      # - name: Add docker context
+      #   run: |
+      #     docker context create tailscale --docker "host=tcp://192.168.2.102:2375"
+      # - name: Run docker ps
+      #   run: docker --context tailscale ps
