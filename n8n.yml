@@ -13,7 +13,7 @@ services:
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
       - NODE_ENV=production
-      - WEBHOOK_URL=https://n8n.ehcan.io
+      - WEBHOOK_URL=https://n8n.lab.ehcan.io
       - GENERIC_TIMEZONE=Europe/Berlin
       - N8N_DIAGNOSTICS_ENABLED=false
       - N8N_PUBLIC_API_SWAGGERUI_DISABLED=true
