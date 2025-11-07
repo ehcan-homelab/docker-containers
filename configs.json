@@ -43,7 +43,6 @@
       }
     ]
   },
-  { "host": "prx1-docker", "docker_host": "tcp://prx1-docker:2375", "stack_name": "ariang" },
   { "host": "prx1-docker", "docker_host": "tcp://prx1-docker:2375", "stack_name": "syncthing" },
   {
     "host": "prx1-docker",
