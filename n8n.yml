@@ -9,7 +9,7 @@ services:
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=n8n.ehcan.io
+      - N8N_HOST=n8n.lab.ehcan.io
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
       - NODE_ENV=production
