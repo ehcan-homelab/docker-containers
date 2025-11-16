@@ -1,0 +1,30 @@
+name: paperless-ngx
+services:
+  broker:
+    container_name: paperless-ngx-redis
+    image: docker.io/library/redis:8
+    restart: unless-stopped
+    volumes:
+      - /mnt/StoragePool/paperless-ngx/redisdata:/data
+  webserver:
+    container_name: paperless-ngx-webserver
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    restart: unless-stopped
+    depends_on:
+      - broker
+    ports:
+      - "8012:8000"
+    volumes:
+      - /mnt/StoragePool/paperless-ngx/data:/usr/src/paperless/data
+      - /mnt/StoragePool/paperless-ngx/media:/usr/src/paperless/media
+      - /mnt/StoragePool/paperless-ngx/export:/usr/src/paperless/export
+      - /mnt/StoragePool/paperless-ngx/consume:/usr/src/paperless/consume
+    environment:
+      PAPERLESS_REDIS: redis://broker:6379
+      USERMAP_UID: 3002
+      USERMAP_GID: 3002
+      PAPERLESS_URL: ${PAPERLESS_URL}
+      PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
+      PAPERLESS_TIME_ZONE: Europe/Berlin
+      PAPERLESS_OCR_LANGUAGE: eng
+      PAPERLESS_OCR_LANGUAGES: deu

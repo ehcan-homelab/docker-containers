@@ -104,5 +104,14 @@
     "secrets": {
       "DISCORD_TOKEN": "op://Github Actions/Discord Tokens/DISCORD_TOKEN_TRUENAS"
     }
+  },
+  {
+    "host": "truenas-scale",
+    "docker_host": "tcp://truenas-scale:2375",
+    "stack_name": "paperless-ngx",
+    "secrets": {
+      "PAPERLESS_URL": "op://Github Actions/Paperless-ngx/PAPERLESS_URL",
+      "PAPERLESS_SECRET_KEY": "op://Github Actions/Paperless-ngx/PAPERLESS_SECRET_KEY"
+    }
   }
 ]
