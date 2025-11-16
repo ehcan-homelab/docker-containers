@@ -15,9 +15,14 @@ services:
       - NODE_ENV=production
       - WEBHOOK_URL=https://n8n.lab.ehcan.io
       - GENERIC_TIMEZONE=Europe/Berlin
-      - N8N_DIAGNOSTICS_ENABLED=false
       - N8N_PUBLIC_API_SWAGGERUI_DISABLED=true
       - N8N_PROXY_HOPS=1
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_VERSION_NOTIFICATIONS_ENABLED=false
+      - N8N_TEMPLATES_ENABLED=false
+      - EXTERNAL_FRONTEND_HOOKS_URLS=""
+      - N8N_DIAGNOSTICS_CONFIG_FRONTEND=""
+      - N8N_DIAGNOSTICS_CONFIG_BACKEND=""
     volumes:
       - n8n_data:/home/node/.n8n
     extra_hosts:
