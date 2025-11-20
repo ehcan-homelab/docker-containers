@@ -1,5 +1,6 @@
 volumes:
   n8n_data:
+  redis_data:
 
 services:
   n8n:
@@ -29,3 +30,10 @@ services:
       - n8n_data:/home/node/.n8n
     extra_hosts:
     - "docker-host:192.168.2.102"
+  redis:
+    image: redis:latest
+    container_name: n8n-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
