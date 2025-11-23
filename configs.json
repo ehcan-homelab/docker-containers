@@ -18,7 +18,12 @@
   },
   { "host": "prx1-docker", "docker_host": "tcp://prx1-docker:2375", "stack_name": "portainer" },
   { "host": "prx1-docker", "docker_host": "tcp://prx1-docker:2375", "stack_name": "uptime-kuma" },
-  { "host": "prx1-docker", "docker_host": "tcp://prx1-docker:2375", "stack_name": "n8n" },
+  {
+    "host": "prx1-docker",
+    "docker_host": "tcp://prx1-docker:2375",
+    "stack_name": "n8n",
+    "secrets": { "CUSTOM_MNLR_SECRET": "op://Github Actions/7xmbk5p2mf4wmt3cq6mgx7xxra/mnlr-secret" }
+  },
   {
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375",

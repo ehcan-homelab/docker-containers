@@ -26,6 +26,7 @@ services:
       - N8N_DIAGNOSTICS_CONFIG_BACKEND=""
       - N8N_METRICS=true
       - QUEUE_HEALTH_CHECK_ACTIVE=true
+      - CUSTOM_MNLR_SECRET=${CUSTOM_MNLR_SECRET}
     volumes:
       - n8n_data:/home/node/.n8n
     extra_hosts:
