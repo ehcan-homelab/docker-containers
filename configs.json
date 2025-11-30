@@ -1,8 +1,8 @@
 [
   {
+    "stack_name": "arr-stack",
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375",
-    "stack_name": "arr-stack",
     "secrets": {
       "CIFS_USERNAME": "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_USERNAME",
       "CIFS_PASSWORD": "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_PASSWORD",
@@ -16,24 +16,34 @@
       }
     ]
   },
-  { "host": "prx1-docker", "docker_host": "tcp://prx1-docker:2375", "stack_name": "portainer" },
-  { "host": "prx1-docker", "docker_host": "tcp://prx1-docker:2375", "stack_name": "uptime-kuma" },
   {
+    "stack_name": "portainer",
     "host": "prx1-docker",
-    "docker_host": "tcp://prx1-docker:2375",
-    "stack_name": "n8n",
-    "secrets": { "CUSTOM_MNLR_SECRET": "op://Github Actions/7xmbk5p2mf4wmt3cq6mgx7xxra/mnlr-secret" }
+    "docker_host": "tcp://prx1-docker:2375"
   },
   {
+    "stack_name": "uptime-kuma",
+    "host": "prx1-docker",
+    "docker_host": "tcp://prx1-docker:2375"
+  },
+  {
+    "stack_name": "n8n",
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375",
+    "secrets": {
+      "CUSTOM_MNLR_SECRET": "op://Github Actions/7xmbk5p2mf4wmt3cq6mgx7xxra/mnlr-secret"
+    }
+  },
+  {
     "stack_name": "homarr",
+    "host": "prx1-docker",
+    "docker_host": "tcp://prx1-docker:2375",
     "secrets": { "SECRET_ENCRYPTION_KEY": "op://Github Actions/Homarr SECRET_ENCRYPTION_KEY/password" }
   },
   {
+    "stack_name": "open-webui",
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375",
-    "stack_name": "open-webui",
     "secrets": {
       "OPENAI_API_KEY": "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPENAI_API_KEY",
       "OPEN_WEBUI_SECRET_KEY": "op://Github Actions/qw65q67e3cpwlgwb2jd4ebfuve/OPEN_WEBUI_SECRET_KEY",
@@ -48,11 +58,15 @@
       }
     ]
   },
-  { "host": "prx1-docker", "docker_host": "tcp://prx1-docker:2375", "stack_name": "syncthing" },
   {
+    "stack_name": "syncthing",
+    "host": "prx1-docker",
+    "docker_host": "tcp://prx1-docker:2375"
+  },
+  {
+    "stack_name": "notion-movie-metadata-updater",
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375",
-    "stack_name": "notion-movie-metadata-updater",
     "secrets": {
       "OMDB_API_KEY": "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/OMDB_API_KEY",
       "NOTION_TOKEN": "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/NOTION_TOKEN",
@@ -63,57 +77,73 @@
     }
   },
   {
+    "stack_name": "playground-db",
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375",
-    "stack_name": "playground-db",
     "secrets": {
       "POSTGRES_USER": "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/username",
       "POSTGRES_PASSWORD": "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/password"
     }
   },
-  { "host": "prx1-docker", "docker_host": "tcp://prx1-docker:2375", "stack_name": "cadvisor" },
-  { "host": "prx1-traefik", "docker_host": "tcp://prx1-traefik:2375", "stack_name": "cadvisor" },
-  { "host": "prx1-grafana", "docker_host": "tcp://prx1-grafana:2375", "stack_name": "cadvisor" },
   {
+    "stack_name": "cadvisor",
+    "host": "prx1-docker",
+    "docker_host": "tcp://prx1-docker:2375"
+  },
+  {
+    "stack_name": "cadvisor",
+    "host": "prx1-traefik",
+    "docker_host": "tcp://prx1-traefik:2375"
+  },
+  {
+    "stack_name": "cadvisor",
+    "host": "prx1-grafana",
+    "docker_host": "tcp://prx1-grafana:2375"
+  },
+  {
+    "stack_name": "watchtower",
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375",
-    "stack_name": "watchtower",
-    "server": "docker",
     "secrets": {
       "DISCORD_TOKEN": "op://Github Actions/Discord Tokens/DISCORD_TOKEN_DOCKER"
     }
   },
   {
+    "stack_name": "watchtower",
     "host": "prx1-traefik",
     "docker_host": "tcp://prx1-traefik:2375",
-    "stack_name": "watchtower",
-    "server": "traefik",
     "secrets": {
       "DISCORD_TOKEN": "op://Github Actions/Discord Tokens/DISCORD_TOKEN_TRAEFIK"
     }
   },
   {
+    "stack_name": "watchtower",
     "host": "prx1-grafana",
     "docker_host": "tcp://prx1-grafana:2375",
-    "stack_name": "watchtower",
-    "server": "grafana",
     "secrets": {
       "DISCORD_TOKEN": "op://Github Actions/Discord Tokens/DISCORD_TOKEN_GRAFANA"
     }
   },
   {
+    "stack_name": "watchtower",
     "host": "truenas-scale",
     "docker_host": "tcp://truenas-scale:2375",
-    "stack_name": "watchtower",
-    "server": "truenas",
     "secrets": {
       "DISCORD_TOKEN": "op://Github Actions/Discord Tokens/DISCORD_TOKEN_TRUENAS"
     }
   },
   {
+    "stack_name": "watchtower",
+    "host": "gcloud-1",
+    "docker_host": "tcp://gcloud-1:2375",
+    "secrets": {
+      "DISCORD_TOKEN": "op://Github Actions/Discord Tokens/DISCORD_TOKEN_GCLOUD1"
+    }
+  },
+  {
+    "stack_name": "paperless-ngx",
     "host": "truenas-scale",
     "docker_host": "tcp://truenas-scale:2375",
-    "stack_name": "paperless-ngx",
     "secrets": {
       "PAPERLESS_URL": "op://Github Actions/Paperless-ngx/PAPERLESS_URL",
       "PAPERLESS_SECRET_KEY": "op://Github Actions/Paperless-ngx/PAPERLESS_SECRET_KEY"
