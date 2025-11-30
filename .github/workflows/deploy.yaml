@@ -48,7 +48,7 @@ jobs:
           CHANGED_STACKS=$(printf "%s " "${CHANGED_STACKS_ARRAY[@]}")
           CHANGED_STACKS="${CHANGED_STACKS% }"
 
-          CONFIGS=$(cat configs.json)
+          CONFIGS=$(cat _configs.json)
 
           FILTERED_CONFIGS=$(echo "$CONFIGS" | jq -c --arg changed_stacks "$CHANGED_STACKS" '
             [.[] |
