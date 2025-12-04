@@ -31,6 +31,8 @@ services:
       - N8N_RUNNERS_MODE=external
       - N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0
       - N8N_RUNNERS_AUTH_TOKEN=${N8N_RUNNERS_AUTH_TOKEN}
+      # Custom Environment Variables
+      - CUSTOM_MNLR_SECRET=${CUSTOM_MNLR_SECRET}
     volumes:
       - n8n_data:/home/node/.n8n
     extra_hosts:
