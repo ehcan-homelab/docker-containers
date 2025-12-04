@@ -26,6 +26,8 @@ services:
       - N8N_DIAGNOSTICS_CONFIG_BACKEND=""
       - N8N_METRICS=true
       - QUEUE_HEALTH_CHECK_ACTIVE=true
+      - NODES_EXCLUDE="[]"
+      # Custom Environment Variables
       - CUSTOM_MNLR_SECRET=${CUSTOM_MNLR_SECRET}
     volumes:
       - n8n_data:/home/node/.n8n
