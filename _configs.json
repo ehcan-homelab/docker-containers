@@ -31,7 +31,8 @@
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375",
     "secrets": {
-      "CUSTOM_MNLR_SECRET": "op://Github Actions/7xmbk5p2mf4wmt3cq6mgx7xxra/mnlr-secret"
+      "CUSTOM_MNLR_SECRET": "op://Github Actions/7xmbk5p2mf4wmt3cq6mgx7xxra/mnlr-secret",
+      "N8N_RUNNERS_AUTH_TOKEN": "op://Github Actions/7xmbk5p2mf4wmt3cq6mgx7xxra/N8N_RUNNERS_AUTH_TOKEN"
     }
   },
   {
