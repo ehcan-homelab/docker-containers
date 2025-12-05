@@ -86,21 +86,10 @@
       "POSTGRES_PASSWORD": "op://Github Actions/dq2p5goruewbeal7dqsyjcktc4/password"
     }
   },
-  {
-    "stack_name": "cadvisor",
-    "host": "prx1-docker",
-    "docker_host": "tcp://prx1-docker:2375"
-  },
-  {
-    "stack_name": "cadvisor",
-    "host": "prx1-traefik",
-    "docker_host": "tcp://prx1-traefik:2375"
-  },
-  {
-    "stack_name": "cadvisor",
-    "host": "prx1-grafana",
-    "docker_host": "tcp://prx1-grafana:2375"
-  },
+  { "stack_name": "cadvisor", "host": "prx1-docker", "docker_host": "tcp://prx1-docker:2375" },
+  { "stack_name": "cadvisor", "host": "prx1-traefik", "docker_host": "tcp://prx1-traefik:2375" },
+  { "stack_name": "cadvisor", "host": "prx1-grafana", "docker_host": "tcp://prx1-grafana:2375" },
+  { "stack_name": "cadvisor", "host": "prx1-n8n", "docker_host": "tcp://prx1-n8n:2375" },
   {
     "stack_name": "watchtower",
     "host": "prx1-docker",
@@ -139,6 +128,14 @@
     "docker_host": "tcp://gcloud-1:2375",
     "secrets": {
       "DISCORD_TOKEN": "op://Github Actions/Discord Tokens/DISCORD_TOKEN_GCLOUD1"
+    }
+  },
+  {
+    "stack_name": "watchtower",
+    "host": "prx1-n8n",
+    "docker_host": "tcp://prx1-n8n:2375",
+    "secrets": {
+      "DISCORD_TOKEN": "op://Github Actions/Discord Tokens/DISCORD_TOKEN_DOCKER"
     }
   },
   {
