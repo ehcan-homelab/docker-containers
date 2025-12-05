@@ -1,7 +1,7 @@
 name: cadvisor
 services:
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
     privileged: true
     container_name: cadvisor
     restart: unless-stopped
@@ -9,8 +9,6 @@ services:
       - 9323:8080
     command:
       - "-store_container_labels=true"
-      - "-docker_only=true"
-      - "-housekeeping_interval=10s"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
