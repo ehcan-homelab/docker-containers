@@ -27,28 +27,13 @@ services:
       - QUEUE_HEALTH_CHECK_ACTIVE=true
       - NODES_EXCLUDE="[]"
       - N8N_RUNNERS_ENABLED=true
-      - N8N_RUNNERS_MODE=external
-      - N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0
-      - N8N_RUNNERS_AUTH_TOKEN=${N8N_RUNNERS_AUTH_TOKEN}
-      - N8N_RUNNERS_TASK_REQUEST_TIMEOUT=300
+      - N8N_RUNNERS_MODE=internal
       # Custom Environment Variables
       - CUSTOM_MNLR_SECRET=${CUSTOM_MNLR_SECRET}
     volumes:
       - n8n_data:/home/node/.n8n
     extra_hosts:
     - "docker-host:192.168.2.102"
-  task-runners:
-    image: n8nio/runners
-    container_name: n8n-runners
-    environment:
-      - N8N_RUNNERS_TASK_BROKER_URI=http://n8n:5679
-      - N8N_RUNNERS_AUTH_TOKEN=${N8N_RUNNERS_AUTH_TOKEN}
-      - N8N_RUNNERS_LAUNCHER_LOG_LEVEL=debug
-      - N8N_RUNNERS_MAX_CONCURRENCY=10
-      # Custom Environment Variables
-      - CUSTOM_MNLR_SECRET=${CUSTOM_MNLR_SECRET}
-    depends_on:
-      - n8n
   redis:
     image: redis:latest
     container_name: n8n-redis
