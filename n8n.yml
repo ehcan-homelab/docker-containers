@@ -3,7 +3,7 @@ volumes:
   redis_data:
 services:
   n8n:
-    image: docker.n8n.io/n8nio/n8n
+    image: n8nio/n8n:next
     container_name: n8n
     restart: unless-stopped
     ports:
@@ -28,6 +28,7 @@ services:
       - NODES_EXCLUDE="[]"
       - N8N_RUNNERS_ENABLED=true
       - N8N_RUNNERS_MODE=internal
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       # Custom Environment Variables
       - CUSTOM_MNLR_SECRET=${CUSTOM_MNLR_SECRET}
     volumes:
