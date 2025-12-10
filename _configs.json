@@ -146,5 +146,10 @@
       "PAPERLESS_URL": "op://Github Actions/Paperless-ngx/PAPERLESS_URL",
       "PAPERLESS_SECRET_KEY": "op://Github Actions/Paperless-ngx/PAPERLESS_SECRET_KEY"
     }
+  },
+  {
+    "stack_name": "prunemate",
+    "host": "prx1-docker",
+    "docker_host": "tcp://prx1-docker:2375"
   }
 ]
