@@ -10,7 +10,7 @@ on:
 jobs:
   prepare_matrix:
     name: Prepare Matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
       has_changes: ${{ steps.set-matrix.outputs.has_changes }}

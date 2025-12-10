@@ -1,3 +1,4 @@
+name: n8n
 volumes:
   n8n_data:
   redis_data:
