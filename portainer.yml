@@ -10,7 +10,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     environment:
-      TZ: Europe/Berlin
+      TZ: ${TIMEZONE}
 
 volumes:
   portainer_data:

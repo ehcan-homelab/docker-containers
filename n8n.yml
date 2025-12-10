@@ -4,7 +4,7 @@ volumes:
   redis_data:
 services:
   n8n:
-    image: n8nio/n8n:next
+    image: ghcr.io/n8n-io/n8n:next
     container_name: n8n
     restart: unless-stopped
     ports:
@@ -15,7 +15,7 @@ services:
       - N8N_PROTOCOL=https
       - NODE_ENV=production
       - WEBHOOK_URL=https://n8n.lab.ehcan.io
-      - GENERIC_TIMEZONE=Europe/Berlin
+      - GENERIC_TIMEZONE=${TIMEZONE}
       - N8N_PUBLIC_API_SWAGGERUI_DISABLED=true
       - N8N_PROXY_HOPS=1
       - N8N_DIAGNOSTICS_ENABLED=false

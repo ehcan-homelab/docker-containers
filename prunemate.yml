@@ -9,6 +9,6 @@ services:
       - /data/prunemate/logs:/var/log
       - /data/prunemate/config:/config
     environment:
-      - PRUNEMATE_TZ=Europe/Berlin
+      - PRUNEMATE_TZ=${TIMEZONE}
       - PRUNEMATE_TIME_24H=true
     restart: unless-stopped

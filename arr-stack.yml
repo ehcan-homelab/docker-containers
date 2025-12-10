@@ -9,7 +9,7 @@ x-arr-service: &x-arr-service
   environment:
     - PUID=1000
     - PGID=1000
-    - TZ=Europe/Berlin
+    - TZ=${TIMEZONE}
   networks:
     - arr-network
   restart: unless-stopped

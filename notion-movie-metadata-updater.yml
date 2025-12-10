@@ -17,6 +17,6 @@ services:
       TVTIME_PASSWORD: ${TVTIME_PASSWORD}
       SLEEP_TIME: 3600
       NOTION_PAGE_SIZE: 20
-      TZ: "Europe/Berlin"
+      TZ: ${TIMEZONE}
       API_TOKEN: ${API_TOKEN}
     restart: unless-stopped
