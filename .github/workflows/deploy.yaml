@@ -1,4 +1,6 @@
 name: Deploy
+permissions:
+  contents: read
 on:
   push:
     branches:
@@ -6,7 +8,6 @@ on:
     paths:
       - '**.yml'
       - '**.yaml'
-
 jobs:
   prepare_matrix:
     name: Prepare Matrix
