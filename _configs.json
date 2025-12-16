@@ -36,12 +36,6 @@
     }
   },
   {
-    "stack_name": "homarr",
-    "host": "prx1-docker",
-    "docker_host": "tcp://prx1-docker:2375",
-    "secrets": { "SECRET_ENCRYPTION_KEY": "op://Github Actions/Homarr SECRET_ENCRYPTION_KEY/password" }
-  },
-  {
     "stack_name": "open-webui",
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375",
