@@ -121,7 +121,6 @@ jobs:
           echo "TIMEZONE=op://Github Actions/Shared Secrets/Timezone" >> $GITHUB_ENV
 
       - name: Load secret from 1Password
-        if: ${{ matrix.config.secrets }}
         uses: 1password/load-secrets-action@v3
         with:
           export-env: true
