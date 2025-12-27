@@ -1,0 +1,13 @@
+name: metabase
+services:
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    hostname: metabase
+    environment:
+      - MB_DB_FILE=/metabase-data/metabase.db
+    volumes:
+      - /dev/urandom:/dev/random:ro
+      - /data/metabase/data:/metabase-data
+    ports:
+      - 3003:3000
