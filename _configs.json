@@ -150,5 +150,10 @@
     "stack_name": "metabase",
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375"
+  },
+  {
+    "stack_name": "databasus",
+    "host": "prx1-docker",
+    "docker_host": "tcp://prx1-docker:2375"
   }
 ]

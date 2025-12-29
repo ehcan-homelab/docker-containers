@@ -1,4 +1,5 @@
 name: databasus
+
 services:
   databasus:
     container_name: databasus
