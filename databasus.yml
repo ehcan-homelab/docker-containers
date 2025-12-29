@@ -1,0 +1,10 @@
+name: databasus
+services:
+  databasus:
+    container_name: databasus
+    image: databasus/databasus:latest
+    ports:
+      - "4005:4005"
+    volumes:
+      - /data/databasus-data/data:/databasus-data
+    restart: unless-stopped
