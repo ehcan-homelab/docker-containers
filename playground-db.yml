@@ -1,7 +1,7 @@
 name: playground-db
 services:
   playground-db:
-    image: postgres:15.15-alpine
+    image: postgres:17.7-alpine
     container_name: playground-db
     restart: unless-stopped
     environment:
