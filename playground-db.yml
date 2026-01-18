@@ -12,5 +12,6 @@ services:
       - "5432:5432"
     volumes:
       - playground-db:/var/lib/postgresql/data
+
 volumes:
   playground-db:
