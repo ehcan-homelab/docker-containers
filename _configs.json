@@ -4,8 +4,6 @@
     "host": "prx1-docker",
     "docker_host": "tcp://prx1-docker:2375",
     "secrets": {
-      "CIFS_USERNAME": "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_USERNAME",
-      "CIFS_PASSWORD": "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/ARR_CIFS_PASSWORD",
       "API_KEY_RADARR": "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/API_KEY_RADARR",
       "API_KEY_SONARR": "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/API_KEY_SONARR"
     },
