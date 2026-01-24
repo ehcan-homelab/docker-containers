@@ -23,7 +23,7 @@ services:
     container_name: sonarr
     volumes:
       - /data/sonarr/data:/config
-      - media-server:/media-server
+      - /mnt/nas:/media-server
     ports:
       - 8989:8989
 
