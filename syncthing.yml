@@ -11,7 +11,7 @@ services:
     hostname: syncthing
     volumes:
       - /data/syncthing/data:/var/syncthing
-      - media-server:/media-server
+      - /mnt/nas:/media-server
     ports:
       - 8384:8384 # Web UI
       - 22000:22000/tcp # TCP file transfers
@@ -23,8 +23,3 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
-
-volumes:
-  media-server:
-    name: media-server
-    external: true
