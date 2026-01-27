@@ -1,12 +1,11 @@
 name: notion-movie-metadata-updater
 
 services:
-  notion-movie-metadata-updater:
+  notion-movie-metadata-updater-tvtime-sync:
     image: ghcr.io/ehcaning/notion-movie-metadata-updater:latest
-    container_name: notion-movie-metadata-updater
+    container_name: notion-movie-metadata-updater-tvtime-sync
     ports:
       - "9181:${METRICS_HTTP_PORT:-8000}"
-      - "9182:${API_HTTP_PORT:-8001}"
     volumes:
       - /data/notion-movie-metadata-updater/data:/app/json_data
     environment:
@@ -19,4 +18,26 @@ services:
       NOTION_PAGE_SIZE: 20
       TZ: ${TIMEZONE}
       API_TOKEN: ${API_TOKEN}
+      TVTIME_SYNC_DISABLED: false
+      METADATA_UPDATER_DISABLED: true
+    restart: unless-stopped
+  notion-movie-metadata-updater-metadata-updater:
+    image: ghcr.io/ehcaning/notion-movie-metadata-updater:latest
+    container_name: notion-movie-metadata-updater-metadata-updater
+    ports:
+      - "9182:${METRICS_HTTP_PORT:-8000}"
+    volumes:
+      - /data/notion-movie-metadata-updater/data:/app/json_data
+    environment:
+      OMDB_API_KEY: ${OMDB_API_KEY}
+      NOTION_TOKEN: ${NOTION_TOKEN}
+      NOTION_DB_ID: ${NOTION_DB_ID}
+      TVTIME_USERNAME: ${TVTIME_USERNAME}
+      TVTIME_PASSWORD: ${TVTIME_PASSWORD}
+      SLEEP_TIME: 3600
+      NOTION_PAGE_SIZE: 20
+      TZ: ${TIMEZONE}
+      API_TOKEN: ${API_TOKEN}
+      TVTIME_SYNC_DISABLED: true
+      METADATA_UPDATER_DISABLED: false
     restart: unless-stopped
