@@ -121,3 +121,15 @@ services:
       API_KEY_RADARR: ${API_KEY_RADARR}
       API_KEY_SONARR: ${API_KEY_SONARR}
 
+  calibre-web:
+    <<: *x-arr-service
+    image: lscr.io/linuxserver/calibre-web:latest
+    container_name: calibre-web
+    environment:
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+    volumes:
+      - /data/calibre-web/data:/config
+      - /mnt/nas/Books:/books
+    ports:
+      - 8083:8083
+    restart: unless-stopped
