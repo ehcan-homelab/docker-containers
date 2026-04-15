@@ -78,6 +78,7 @@
       "NOTION_DATABASE_ID": "op://Github Actions/r5xhu7ve3zefqpk52zgxzvk5tu/NOTION_DATABASE_ID",
       "TELEGRAM_BOT_TOKEN": "op://Github Actions/r5xhu7ve3zefqpk52zgxzvk5tu/TELEGRAM_BOT_TOKEN",
       "TELEGRAM_CHAT_ID": "op://Github Actions/r5xhu7ve3zefqpk52zgxzvk5tu/TELEGRAM_CHAT_ID",
+      "TELEGRAM_MESSAGE_THREAD_ID": "op://Github Actions/r5xhu7ve3zefqpk52zgxzvk5tu/TELEGRAM_MESSAGE_THREAD_ID",
       "DEBUG": "false",
       "CRON": "0 8 * * *"
     }
