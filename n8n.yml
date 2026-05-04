@@ -32,6 +32,7 @@ services:
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       # Custom Environment Variables
       - CUSTOM_MNLR_SECRET=${CUSTOM_MNLR_SECRET}
+      - CUSTOM_MNLR_SECRET_O=${CUSTOM_MNLR_SECRET_O}
     volumes:
       - n8n_data:/home/node/.n8n
     extra_hosts:
