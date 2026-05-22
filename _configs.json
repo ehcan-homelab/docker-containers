@@ -6,7 +6,13 @@
     "secrets": {
       "API_KEY_RADARR": "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/API_KEY_RADARR",
       "API_KEY_SONARR": "op://Github Actions/noucdydqwu6gwxfud6mfnuy3ii/API_KEY_SONARR"
-    }
+    },
+    "data": [
+      {
+        "from": "data/arr-stack/checkrr/config.yaml",
+        "to": "/data/checkrr/config.yaml"
+      }
+    ]
   },
   {
     "stack_name": "portainer",
