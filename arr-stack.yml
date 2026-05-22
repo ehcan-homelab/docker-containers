@@ -115,8 +115,9 @@ services:
     <<: *x-arr-service
     container_name: checkrr
     image: soheilrt/checkrr:latest
-    volumes:
-      - /data/checkrr/config.yaml:/etc/checkrr/config.yaml:ro
+    configs:
+      - source: checkrr-config
+        target: /etc/checkrr/config.yaml
     environment:
       API_KEY_RADARR: ${API_KEY_RADARR}
       API_KEY_SONARR: ${API_KEY_SONARR}
@@ -133,3 +134,7 @@ services:
     ports:
       - 8083:8083
     restart: unless-stopped
+
+configs:
+  checkrr-config:
+    file: ./data/arr-stack/checkrr/config.yaml
