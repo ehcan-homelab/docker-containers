@@ -10,11 +10,11 @@ services:
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=n8n.lab.ehcan.io
+      - N8N_HOST=${DOMAIN}
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
       - NODE_ENV=production
-      - WEBHOOK_URL=https://n8n.lab.ehcan.io
+      - WEBHOOK_URL=https://${DOMAIN}
       - GENERIC_TIMEZONE=${TIMEZONE}
       - N8N_PUBLIC_API_SWAGGERUI_DISABLED=true
       - N8N_PROXY_HOPS=1
