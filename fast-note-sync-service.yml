@@ -1,0 +1,11 @@
+name: fast-note-sync-service
+services:
+  fast-note-sync-service:
+    image: haierkeys/fast-note-sync-service:latest
+    container_name: fast-note-sync-service
+    restart: always
+    ports:
+      - "9900:9000"
+    volumes:
+      - /data/fast-note-sync-service/storage:/fast-note-sync/storage
+      - /data/fast-note-sync-service/config:/fast-note-sync/config
