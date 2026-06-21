@@ -1,4 +1,5 @@
 name: fast-note-sync-service
+
 services:
   fast-note-sync-service:
     image: haierkeys/fast-note-sync-service:latest
