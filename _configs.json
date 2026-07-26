@@ -59,19 +59,6 @@
     "docker_host": "tcp://prx1-docker:2375"
   },
   {
-    "stack_name": "notion-movie-metadata-updater",
-    "host": "prx1-docker",
-    "docker_host": "tcp://prx1-docker:2375",
-    "secrets": {
-      "OMDB_API_KEY": "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/OMDB_API_KEY",
-      "NOTION_TOKEN": "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/NOTION_TOKEN",
-      "NOTION_DB_ID": "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/NOTION_DB_ID",
-      "TVTIME_USERNAME": "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/TVTIME_USERNAME",
-      "TVTIME_PASSWORD": "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/TVTIME_PASSWORD",
-      "API_TOKEN": "op://Github Actions/owhmfx3svuv2td3v23mvy7eks4/API_TOKEN"
-    }
-  },
-  {
     "stack_name": "notion-telegram-event-reminder",
     "host": "gcloud-1",
     "docker_host": "tcp://gcloud-1:2375",
